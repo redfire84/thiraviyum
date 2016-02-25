@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head data-th-replace="fragments/layout :: head">
+	<title>Yearly Detail</title>
+</head>
+<body>
+	<header data-th-include="fragments/layout :: header"></header>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<ol class="breadcrumb">
+					<li><a href="#" data-th-href="@{/dashboard/show}">Dashboard</a></li>
+					<li><a href="#" data-th-href="@{/dashboard/list}">Yearly Detail</a></li>
+					<li class="active" data-th-inline="text">[[${year}]]</li>
+				</ol>
+				<hr />
+				<div data-th-replace="fragments/layout :: global-messages"></div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+				<div class="panel panel-primary">
+					<div class="panel-heading"><div class="panel-title">Credits</div></div>
+					<div class="panel-body">
+						<table id="creditTable" class="table table-bordered table-hover table-condensed">
+							<thead>
+								<tr>
+									<th>Date</th>
+									<th>Amount</th>
+									<th>Source</th>
+									<th>Comment</th>
+									<th></th>
+								</tr>
+							</thead>
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="panel panel-primary">
+					<div class="panel-heading"><div class="panel-title">Debits</div></div>
+					<div class="panel-body">
+						<table id="debitTable" class="table table-bordered table-hover table-condensed">
+							<thead>
+								<tr>
+									<th>Date</th>
+									<th>Amount</th>
+									<th>XE Rate</th>
+									<th>Comment</th>
+									<th></th>
+								</tr>
+							</thead>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" data-th-inline="javascript">
+		require(["jquery", "bootstrap-datatables"], function($) {
+			$('#creditTable').dataTable({
+				paging: false,
+				searching: false,
+				lengthChange: false,
+				info: false,
+				ajax: [[@{/credit/{year}/list(year=*{year},_csrf=${_csrf.token})}]],
+				columns: [
+					{ data: 'effectiveDate', type: "date", dateFormat: "yyyy-mm-dd" },
+					{ 
+						data: function(row, type, set, meta) {
+							return '<i class="fa fa-dollar"></i> ' + row.amount;
+						} 
+					},
+					{ data: 'source' },
+					{ data: 'comment' },
+					{
+						data: function(row, type, set, meta) {
+							var url = [[@{/credit/}]] + row.id + '/show';
+							return '<a href="' + url + '"><i class="fa fa-trash fa-2x text-danger"></i></a>';
+						},
+						orderable: false
+					}
+				]
+			});
+			$('#debitTable').dataTable({
+				paging: false,
+				searching: false,
+				lengthChange: false,
+				info: false,
+				ajax: [[@{/debit/{year}/list(year=*{year},_csrf=${_csrf.token})}]],
+				columns: [
+					{ data: 'effectiveDate' },
+					{ 
+						data: function(row, type, set, meta) {
+							return '<i class="fa fa-dollar"></i> ' + row.amount;
+						} 
+					},
+					{ 
+						data: function(row, type, set, meta) {
+							return '<i class="fa fa-rupee"></i> ' + row.exchangeRate;
+						} 
+					},
+					{ data: 'comment' },
+					{
+						data: function(row, type, set, meta) {
+							var url = [[@{/debit/}]] + row.id + '/show';
+							return '<a href="' + url + '"><i class="fa fa-trash fa-2x text-danger"></i></a>';
+						},
+						orderable: false
+					}
+				]
+			});
+		});
+	</script>
+	<footer data-th-include="fragments/layout :: footer"></footer>
+</body>
+</html>

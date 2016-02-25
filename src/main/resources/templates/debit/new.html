@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head data-th-replace="fragments/layout :: head">
+	<title>Add Debit</title>
+</head>
+<body>
+	<header data-th-include="fragments/layout :: header"></header>
+	<div class="container">
+		<ol class="breadcrumb">
+			<li><a href="#" data-th-href="@{/dashboard/show}">Dashboard</a></li>
+			<li class="active">Debit</li>
+		</ol>
+		<hr />
+		<div data-th-replace="fragments/layout :: global-messages"></div>
+		<form action="#" data-th-action="@{/debit/create}" method="post" data-th-object="${debit}" class="form-horizontal" data-parsley-validate="true">
+			<div data-th-replace="fragments/layout :: field-errors"></div>
+			<div class="form-group">
+				<label for="effectiveDate" class="col-md-2 control-label">Effective Date</label>
+				<div class="col-md-2">
+					<input type="date" class="form-control" data-th-field="*{effectiveDate}" required="required" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="amount" class="col-md-2 control-label">Amount</label>
+				<div class="col-md-2">
+					<div class="input-group">
+						<div class="input-group-addon"><i class="fa fa-dollar"></i></div>
+						<input type="number" min="1" max="10000" class="form-control" data-th-field="*{amount}" required="required" />
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="exchangeRate" class="col-md-2 control-label">Exchange Rate</label>
+				<div class="col-md-2">
+					<div class="input-group">
+						<div class="input-group-addon"><i class="fa fa-dollar"></i></div>
+						<input type="text" min="20" max="100" class="form-control" data-th-field="*{exchangeRate}" required="required" data-parsley-type="number" />
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="comment" class="col-md-2 control-label">Comment</label>
+				<div class="col-md-2">
+					<input type="text" class="form-control" data-th-field="*{comment}" maxlength="100" />
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-md-offset-2 col-md-2">
+					<button type="submit" class="btn btn-primary btn-block">Add</button>
+				</div>
+			</div>
+		</form>
+	</div>
+	<script type="text/javascript">
+		require(["parsleyjs"]);
+	</script>
+	<footer data-th-include="fragments/layout :: footer"></footer>
+</body>
+</html>

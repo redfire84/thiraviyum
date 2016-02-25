@@ -1,0 +1,10 @@
+body { padding-top: 70px; }
+
+#creditTable tbody tr > td:nth-child(2) {
+	text-align:right !important;
+}
+
+#debitTable tbody tr > td:nth-child(2),
+#debitTable tbody tr > td:nth-child(3) {
+	text-align:right !important;
+}

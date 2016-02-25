@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head data-th-fragment="head">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Thiraviyum</title>
+
+<link rel="stylesheet" href="#" data-th-href="@{/webjars/bootstrap/3.3.6/css/bootstrap.min.css}" />
+<link rel="stylesheet" href="#" data-th-href="@{/webjars/datatables-plugins/1.10.10/integration/bootstrap/3/dataTables.bootstrap.css}" />
+<link rel="stylesheet" href="#" data-th-href="@{/webjars/font-awesome/4.5.0/css/font-awesome.min.css}" />
+<link rel="stylesheet" href="#" data-th-href="@{/webjars/datatables-plugins/1.10.10/integration/font-awesome/dataTables.fontAwesome.css}" />
+<link rel="stylesheet" href="#" data-th-href="@{/css/app.css}" />
+
+<script type="text/javascript" src="#" data-th-src="@{/webjarsjs}"></script>
+<script type="text/javascript" src="#" data-th-src="@{/webjars/requirejs/2.1.22/require.min.js}"></script>
+<script type="text/javascript" src="#" data-th-src="@{/js/config.js}"></script>
+<script type="text/javascript">
+	require(["jquery"], function($){
+		$.ajaxSetup({
+			cache: false
+		});
+	});
+</script>
+<script type="text/javascript">
+	window.ParsleyConfig = {
+	    errorClass: 'has-error',
+	    successClass: 'has-success',
+	    classHandler: function(ParsleyField) {
+	        return ParsleyField.$element.parents('.form-group');
+	    },
+	    errorsContainer: function(ParsleyField) {
+	        return ParsleyField.$element.parents('.form-group');
+	    },
+	    errorsWrapper: '<span class="help-block"></span>',
+	    errorTemplate: '<div></div>'
+	};
+</script>
+</head>
+<body>
+	<header data-th-fragment="header">
+		<nav class="navbar navbar-inverse navbar-fixed-top">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
+				        <span class="sr-only">Toggle navigation</span>
+				        <span class="icon-bar"></span>
+				        <span class="icon-bar"></span>
+				        <span class="icon-bar"></span>
+				      </button>
+					<a class="navbar-brand" href="#" data-th-href="@{/}">Thiraviyum</a>
+				</div>
+				<div id="navbar-collapse-1" class="collapse navbar-collapse" data-th-if="${#authorization.expression('isAuthenticated()')}">
+					<form action="#" data-th-action="@{/logout}" method="post" class="navbar-form navbar-right">
+						<p class="text-muted">
+							<b><span data-th-text="${#authentication.name}">Username</span></b>
+							(<button type="submit" class="btn btn-link btn-xs" title="Logout">Logout</button>)
+						</p>
+					</form>
+				</div>
+			</div>
+		</nav>
+		<script type="text/javascript">
+			require(["bootstrap"]);
+		</script>
+	</header>
+	
+	<!-- Redirect messages -->
+	<div data-th-fragment="global-messages">
+		<div class="alert alert-danger alert-dismissible" data-th-inline="text" data-th-if="${errorMsg}">
+			<button type="button" class="close" data-dismiss="alert">&times;</button>
+			[[${errorMsg}]]
+		</div>
+		<div class="alert alert-warning alert-dismissible" data-th-inline="text" data-th-if="${warningMsg}">
+			<button type="button" class="close" data-dismiss="alert">&times;</button>
+			[[${warningMsg}]]
+		</div>
+		<div class="alert alert-info alert-dismissible" data-th-inline="text" data-th-if="${infoMsg}">
+			<button type="button" class="close" data-dismiss="alert">&times;</button>
+			[[${infoMsg}]]
+		</div>
+		<div class="alert alert-success alert-dismissible" data-th-inline="text" data-th-if="${successMsg}">
+			<button type="button" class="close" data-dismiss="alert">&times;</button>
+			[[${successMsg}]]
+		</div>
+	</div>
+	
+	<!-- Field errors (Must be used inside a HTML form) -->
+	<div class="alert alert-danger" data-th-fragment="field-errors" data-th-if="${#fields.hasErrors('*')}">
+		<ul>
+			<li data-th-each="err : ${#fields.errors('*')}" data-th-text="${err}">Field Errors</li>
+		</ul>
+	</div>
+	
+	This is a layout.
+	
+	<footer data-th-fragment="footer">
+		<hr />
+		<div class="container text-center">
+			<span class="text-muted">
+				<i class="fa fa-copyright"></i>
+				<span data-th-text="${#dates.format(#dates.createToday(), 'yyyy')}">2015</span>
+				Thiraviyum.com
+			</span>
+		</div>
+	</footer>
+</body>
+</html>

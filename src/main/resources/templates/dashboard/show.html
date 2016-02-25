@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head data-th-replace="fragments/layout :: head">
+	<title>Dashboard</title>
+</head>
+<body>
+	<header data-th-include="fragments/layout :: header"></header>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<ol class="breadcrumb">
+					<li class="active">Dashboard</li>
+				</ol>
+				<hr />
+				<div data-th-replace="fragments/layout :: global-messages"></div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-5">
+				<p class="text-right">Total Credit</p>
+			</div>
+			<div class="col-md-2">
+				<p class="text-right"><i class="fa fa-dollar"></i>&nbsp;<span data-th-text="${#numbers.formatDecimal(dashboard.totalCredit,1,'COMMA',2,'POINT')}">300,000</span></p>
+			</div>
+			<div class="col-md-5">
+				<a class="btn btn-success btn-xs" href="#" data-th-href="@{/credit/new}">Add</a>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-5">
+				<p class="text-right">Total Debit</p>
+			</div>
+			<div class="col-md-2">
+				<p class="text-right" id="usdTotal"><i class="fa fa-dollar"></i>&nbsp;<span data-th-text="${#numbers.formatDecimal(dashboard.totalDebit,1,'COMMA',2,'POINT')}">200,000</span></p>
+			</div>
+			<div class="col-md-5">
+				<a class="btn btn-success btn-xs" href="#" data-th-href="@{/debit/new}">Add</a>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-5">
+			</div>
+			<div class="col-md-2">
+				<p class="text-right" id="inrTotal"><i class="fa fa-rupee"></i>&nbsp;<span data-th-text="${#numbers.formatDecimal(dashboard.totalDebitConverted,1,'COMMA',2,'POINT')}">1,00,00,000</span></p>
+			</div>
+			<div class="col-md-5">
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-5">
+				&nbsp;
+			</div>
+			<div class="col-md-2">
+				<a href="#" data-th-href="@{/dashboard/list}" class="btn btn-primary btn-sm btn-block">View Details</a>
+			</div>
+			<div class="col-md-5">
+				&nbsp;
+			</div>
+		</div>
+		<hr />
+		<div class="row">
+			<div class="col-md-6">
+				<p class="lead text-center">Credit Chart</p>
+			</div>
+			<div class="col-md-6">
+				<p class="lead text-center">Debit Chart</p>
+			</div>
+		</div>
+		<hr />
+		<div class="row">
+			<div class="col-md-12">
+				<p class="lead text-center">XE Chart</p>
+			</div>
+		</div>
+	</div>
+	<footer data-th-include="fragments/layout :: footer"></footer>
+</body>
+</html>

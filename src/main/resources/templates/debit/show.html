@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head data-th-replace="fragments/layout :: head">
+	<title>Delete Debit</title>
+</head>
+<body>
+	<header data-th-include="fragments/layout :: header"></header>
+	<div class="container">
+		<ol class="breadcrumb">
+			<li><a href="#" data-th-href="@{/dashboard/show}">Dashboard</a></li>
+			<li><a href="#" data-th-href="@{/dashboard/list}">Yearly Detail</a></li>
+			<li><a href="#" data-th-href="@{/dashboard/{year}/show(year=${debit.effectiveYear})}" data-th-inline="text">[[${debit.effectiveYear}]]</a></li>
+			<li class="active">Debit</li>
+		</ol>
+		<hr />
+		<div data-th-replace="fragments/layout :: global-messages"></div>
+		<form action="#" data-th-action="@{/debit/{id}/delete(id=*{id})}" method="post" data-th-object="${debit}" class="form-horizontal" data-parsley-validate="true">
+			<input type="hidden" name="_method" value="delete" />
+			<div class="form-group">
+				<label class="col-md-2 control-label">Effective Date</label>
+				<div class="col-md-2">
+					<p class="form-control-static" data-th-text="${#dates.format(debit.effectiveDate, 'yyyy-MM-dd')}"></p>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="amount" class="col-md-2 control-label">Amount</label>
+				<div class="col-md-2">
+					<div class="input-group">
+						<p class="form-control-static" data-th-inline="text"><i class="fa fa-dollar"></i>&nbsp;[[*{amount}]]</p>
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-2 control-label">Exchange Rate</label>
+				<div class="col-md-2">
+					<div class="input-group">
+						<p class="form-control-static" data-th-inline="text"><i class="fa fa-dollar"></i>&nbsp;[[*{exchangeRate}]]</p>
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-2 control-label">Comment</label>
+				<div class="col-md-2">
+					<p class="form-control-static" data-th-text="*{comment}"></p>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-md-offset-2 col-md-2">
+				<button type="button" class="btn btn-default" onclick="window.history.back()">Back</button>
+					<button type="submit" class="btn btn-danger">Delete</button>
+				</div>
+			</div>
+		</form>
+	</div>
+	<footer data-th-include="fragments/layout :: footer"></footer>
+</body>
+</html>
