@@ -1,7 +1,6 @@
 package com.thiraviyum.model;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.List;
 
 import com.thiraviyum.domain.Credit;
@@ -9,16 +8,14 @@ import com.thiraviyum.domain.Debit;
 
 public class Dashboard {
 
-	private BigDecimal totalCredit;
-	private BigDecimal totalDebit;
-	private BigDecimal totalDebitConverted;
+	private BigDecimal totalCredit = BigDecimal.ZERO;
+	private BigDecimal totalDebit = BigDecimal.ZERO;
+	private BigDecimal totalDebitConverted = BigDecimal.ZERO;
+	private BigDecimal avgExchangeRate = BigDecimal.ZERO;
+	private BigDecimal score = BigDecimal.ZERO;
 	private List<YearlyDashboard> yearlyDashboard;
 	private List<Credit> credits;
 	private List<Debit> debits;
-	
-	public BigDecimal getAvgExchangeRate() {
-		return totalDebitConverted.divide(totalDebit, 2, RoundingMode.UP);
-	}
 	
 	public BigDecimal getTotalCredit() {
 		return totalCredit;
@@ -55,5 +52,17 @@ public class Dashboard {
 	}
 	public void setDebits(List<Debit> debits) {
 		this.debits = debits;
+	}
+	public BigDecimal getAvgExchangeRate() {
+		return avgExchangeRate;
+	}
+	public void setAvgExchangeRate(BigDecimal avgExchangeRate) {
+		this.avgExchangeRate = avgExchangeRate;
+	}
+	public BigDecimal getScore() {
+		return score;
+	}
+	public void setScore(BigDecimal score) {
+		this.score = score;
 	}
 }

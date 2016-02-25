@@ -1,7 +1,6 @@
 package com.thiraviyum.model;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.List;
 
 import com.thiraviyum.domain.Credit;
@@ -10,18 +9,15 @@ import com.thiraviyum.domain.Debit;
 public class YearlyDashboard {
 
 	private String year;
-	private BigDecimal oneYearCredit;
-	private BigDecimal oneMonthCredit;
-	private BigDecimal oneYearDebit;
-	private BigDecimal oneMonthDebit;
-	private BigDecimal oneYearDebitConverted;
-	private BigDecimal oneMonthDebitConverted;
+	private BigDecimal oneYearCredit = BigDecimal.ZERO;
+	private BigDecimal oneMonthCredit = BigDecimal.ZERO;
+	private BigDecimal oneYearDebit = BigDecimal.ZERO;
+	private BigDecimal oneMonthDebit = BigDecimal.ZERO;
+	private BigDecimal oneYearDebitConverted = BigDecimal.ZERO;
+	private BigDecimal oneMonthDebitConverted = BigDecimal.ZERO;
+	private BigDecimal avgExchangeRate = BigDecimal.ZERO;
 	private List<Credit> credits;
 	private List<Debit> debits;
-	
-	public BigDecimal getAvgExchangeRate() {
-		return oneYearDebitConverted.divide(oneYearDebit, 2, RoundingMode.UP);
-	}
 	
 	public String getYear() {
 		return year;
@@ -76,5 +72,11 @@ public class YearlyDashboard {
 	}
 	public void setDebits(List<Debit> debits) {
 		this.debits = debits;
+	}
+	public BigDecimal getAvgExchangeRate() {
+		return avgExchangeRate;
+	}
+	public void setAvgExchangeRate(BigDecimal avgExchangeRate) {
+		this.avgExchangeRate = avgExchangeRate;
 	}
 }

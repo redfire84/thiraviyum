@@ -27,6 +27,8 @@ import com.thiraviyum.service.DashboardService;
 
 @Service
 public class DashboardServiceImpl implements DashboardService {
+	private final BigDecimal ONE_HUNDRED = new BigDecimal(100);
+	
 	@Autowired
 	private CreditDao creditDao;
 	@Autowired
@@ -58,6 +60,12 @@ public class DashboardServiceImpl implements DashboardService {
 		dashboard.setTotalDebitConverted(totalDebitConverted);
 		dashboard.setCredits(credits);
 		dashboard.setDebits(debits);
+		if (totalDebit.compareTo(BigDecimal.ZERO) > 0 && totalDebitConverted.compareTo(BigDecimal.ZERO) > 0) {
+			dashboard.setAvgExchangeRate(totalDebitConverted.divide(totalDebit, 2, RoundingMode.UP));
+		}
+		if (totalDebit.compareTo(BigDecimal.ZERO) > 0 && totalCredit.compareTo(BigDecimal.ZERO) > 0) {
+			dashboard.setScore(totalDebit.divide(totalCredit, 2, RoundingMode.UP).multiply(ONE_HUNDRED));
+		}
 		populateYearlyData(dashboard);
 		return dashboard;
 	}
@@ -122,6 +130,9 @@ public class DashboardServiceImpl implements DashboardService {
 			yDashboard.setOneMonthDebit(oneMonthDebit);
 			yDashboard.setOneYearDebitConverted(oneYearDebitConverted);
 			yDashboard.setOneMonthDebitConverted(oneMonthDebitConverted);
+			if (oneYearDebit.compareTo(BigDecimal.ZERO) > 0 && oneYearDebitConverted.compareTo(BigDecimal.ZERO) > 0) {
+				dashboard.setAvgExchangeRate(oneYearDebitConverted.divide(oneYearDebit, 2, RoundingMode.UP));
+			}
 			yDashboard.setCredits(yearlyCredits.get(year));
 			yDashboard.setDebits(yearlyDebits.get(year));
 			yearlyDashboard.add(yDashboard);
