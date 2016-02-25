@@ -64,7 +64,7 @@ public class DashboardServiceImpl implements DashboardService {
 			dashboard.setAvgExchangeRate(totalDebitConverted.divide(totalDebit, 2, RoundingMode.UP));
 		}
 		if (totalDebit.compareTo(BigDecimal.ZERO) > 0 && totalCredit.compareTo(BigDecimal.ZERO) > 0) {
-			dashboard.setScore(totalDebit.divide(totalCredit, 2, RoundingMode.UP).multiply(ONE_HUNDRED));
+			dashboard.setScore(totalDebit.divide(totalCredit, 3, RoundingMode.UP).multiply(ONE_HUNDRED));
 		}
 		populateYearlyData(dashboard);
 		return dashboard;

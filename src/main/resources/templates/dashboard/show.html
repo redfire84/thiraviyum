@@ -59,14 +59,7 @@
 				</div>
 			</div>
 			<div class="col-md-6">
-				<div class="row">
-					<div class="col-md-4">
-						<h4>Your Score:</h4>
-					</div>
-					<div class="col-md-8" data-th-text="${#numbers.formatDecimal(dashboard.score,1,'COMMA',0,'POINT')}">
-						TBD
-					</div>
-				</div>
+				<div id="chart_div" style="width: 400px; height: 200px;"></div>
 			</div>
 		</div>
 		
@@ -79,48 +72,28 @@
 			</div>
 		</div>
 	</div>
-	<script type="text/javascript">
+	<script type="text/javascript" data-th-inline="javascript">
 		require(["charts"], function() {
-			google.charts.load('current', {packages: ['corechart']});
+			google.charts.load('current', {packages: ['corechart', 'gauge']});
 			google.charts.setOnLoadCallback(drawChart);
 
 			function drawChart() {
-			      var data = new google.visualization.DataTable();
-			      data.addColumn('timeofday', 'Time of Day');
-			      data.addColumn('number', 'Motivation Level');
-			      data.addColumn('number', 'Energy Level');
+				var score = [[${dashboard.score}]]
+				var data = google.visualization.arrayToDataTable([
+				                                                  ['Label', 'Value'],
+				                                                  ['Score', score]
+				                                                ]);
+				var options = {
+				          redFrom: 0, redTo: 50,
+				          yellowFrom: 50, yellowTo: 75,
+				          greenFrom: 75, greenTo: 100,
+				          minorTicks: 5
+				        };
 
-			      data.addRows([
-			        [{v: [8, 0, 0], f: '8 am'}, 1, .25],
-			        [{v: [9, 0, 0], f: '9 am'}, 2, .5],
-			        [{v: [10, 0, 0], f:'10 am'}, 3, 1],
-			        [{v: [11, 0, 0], f: '11 am'}, 4, 2.25],
-			        [{v: [12, 0, 0], f: '12 pm'}, 5, 2.25],
-			        [{v: [13, 0, 0], f: '1 pm'}, 6, 3],
-			        [{v: [14, 0, 0], f: '2 pm'}, 7, 4],
-			        [{v: [15, 0, 0], f: '3 pm'}, 8, 5.25],
-			        [{v: [16, 0, 0], f: '4 pm'}, 9, 7.5],
-			        [{v: [17, 0, 0], f: '5 pm'}, 10, 10],
-			      ]);
+				var chart = new google.visualization.Gauge(document.getElementById('chart_div'));
 
-			      var options = {
-			        title: 'Motivation and Energy Level Throughout the Day',
-			        hAxis: {
-			          title: 'Time of Day',
-			          format: 'h:mm a',
-			          viewWindow: {
-			            min: [7, 30, 0],
-			            max: [17, 30, 0]
-			          }
-			        },
-			        vAxis: {
-			          title: 'Rating (scale of 1-10)'
-			        }
-			      };
-
-			      var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
-			      chart.draw(data, options);
-			    }
+		        chart.draw(data, options);
+		    }
 		});
 	</script>
 	<footer data-th-include="fragments/layout :: footer"></footer>
