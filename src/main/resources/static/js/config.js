@@ -1,8 +1,9 @@
 require.config({
-	baseUrl: "js",
+	baseUrl: "/js",
 	paths: {
 		"parsleyjs": "/webjars/parsleyjs/2.1.2/parsley.min",
-		"bootstrap-datatables": "/webjars/datatables-plugins/1.10.10/integration/bootstrap/3/dataTables.bootstrap.min"
+		"bootstrap-datatables": "/webjars/datatables-plugins/1.10.10/integration/bootstrap/3/dataTables.bootstrap.min",
+		"charts": "https://www.gstatic.com/charts/loader"
 	},
 	shim: {
 		"parsleyjs": {
