@@ -15,3 +15,7 @@ body {
 	font-family: cursive;
 	font-size: 20px;
 }
+
+.nav-tabs-bordered > li > a {
+	border-color: #eeeeee #eeeeee #dddddd;
+}

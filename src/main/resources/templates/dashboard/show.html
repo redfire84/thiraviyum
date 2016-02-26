@@ -11,63 +11,125 @@
 		</ol>
 		<hr />
 		<div data-th-replace="fragments/layout :: global-messages"></div>
-		<div class="row">
-			<div class="col-md-4 col-md-offset-1">
-				<p class="text-dashboard">Your Score</p>
-				<div id="chart_div" style="width: 400px; height: 200px;"></div>
-			</div>
-			<div class="col-md-6">
-				<div class="row">
-					<div class="col-md-5">
-						<p class="text-dashboard">Year To Date Credit</p>
+		<section id="dashboardSection">
+			<div class="row">
+				<div class="col-md-4 col-md-offset-1">
+					<p class="text-dashboard">Your Score</p>
+					<div id="scoreGauge" style="width: 400px; height: 200px;"></div>
+				</div>
+				<div class="col-md-6">
+					<div class="row">
+						<div class="col-md-5">
+							<p class="text-dashboard">Year To Date Credit</p>
+						</div>
+						<div class="col-md-4">
+							<p class="text-dashboard"><i class="fa fa-dollar"></i>&nbsp;<span data-th-text="${#numbers.formatDecimal(dashboard.totalCredit,1,'COMMA',2,'POINT')}">300,000</span></p>
+						</div>
+						<div class="col-md-3">
+							<a class="btn btn-success" href="#" data-th-href="@{/credit/new}">Add</a>
+						</div>
 					</div>
-					<div class="col-md-4">
-						<p class="text-dashboard"><i class="fa fa-dollar"></i>&nbsp;<span data-th-text="${#numbers.formatDecimal(dashboard.totalCredit,1,'COMMA',2,'POINT')}">300,000</span></p>
+					<hr />
+					<div class="row">
+						<div class="col-md-5">
+							<p class="text-dashboard">Year To Date Debit</p>
+						</div>
+						<div class="col-md-4">
+							<p class="text-dashboard">
+							<i class="fa fa-dollar"></i>&nbsp;<span data-th-text="${#numbers.formatDecimal(dashboard.totalDebit,1,'COMMA',2,'POINT')}">200,000</span>
+							<br />
+							<i class="fa fa-rupee"></i>&nbsp;<span data-th-text="${#numbers.formatDecimal(dashboard.totalDebitConverted,1,'COMMA',2,'POINT')}">1,00,00,000</span>
+							</p>
+						</div>
+						<div class="col-md-3">
+							<a class="btn btn-success" href="#" data-th-href="@{/debit/new}">Add</a>
+						</div>
 					</div>
-					<div class="col-md-3">
-						<a class="btn btn-success" href="#" data-th-href="@{/credit/new}">Add</a>
+					<hr />
+					<div class="row">
+						<div class="col-md-4 col-md-offset-5">
+							<a href="#yearlyDetailSection" class="btn btn-primary btn-block">View Details</a>
+						</div>
 					</div>
 				</div>
-				<hr />
-				<div class="row">
-					<div class="col-md-5">
-						<p class="text-dashboard">Year To Date Debit</p>
-					</div>
-					<div class="col-md-4">
-						<p class="text-dashboard">
-						<i class="fa fa-dollar"></i>&nbsp;<span data-th-text="${#numbers.formatDecimal(dashboard.totalDebit,1,'COMMA',2,'POINT')}">200,000</span>
-						<br />
-						<i class="fa fa-rupee"></i>&nbsp;<span data-th-text="${#numbers.formatDecimal(dashboard.totalDebitConverted,1,'COMMA',2,'POINT')}">1,00,00,000</span>
-						</p>
-					</div>
-					<div class="col-md-3">
-						<a class="btn btn-success" href="#" data-th-href="@{/debit/new}">Add</a>
-					</div>
+			</div>
+			<hr />
+		</section>
+		<section id="xeRateSection">
+			<div class="row">
+				<div class="col-md-12">
+					<p class="text-center text-dashboard">XE Rate</p>
+					<div id="xeChart"></div>
 				</div>
-				<hr />
-				<div class="row">
-					<div class="col-md-4 col-md-offset-5">
-						<a href="#" data-th-href="@{/dashboard/list}" class="btn btn-primary btn-block">View Details</a>
+			</div>
+			<hr />
+		</section>
+		<section id="yearlyDetailSection">
+			<div class="row">
+				<div class="col-md-12">
+					<p class="text-center text-dashboard">Yearly Detail</p>
+					<ul class="nav nav-tabs nav-tabs-bordered">
+	  					<li class="active"><a href="#" data-target="#yearlyChart" data-toggle="tab">Chart</a></li>
+	  					<li><a href="#" data-target="#yearlyTable" data-toggle="tab">Table</a></li>
+					</ul>
+					<div class="tab-content">
+						<div id="yearlyChart" class="tab-pane active"></div>
+						<div id="yearlyTable" class="tab-pane">
+							<table class="table table-bordered table-hover table-condensed">
+								<thead>
+									<tr class="active">
+										<th class="text-right">Years</th>
+										<th class="text-right">1Y Credit</th>
+										<th class="text-right">1M Credit</th>
+										<th class="text-right">1Y Avg. XE</th>
+										<th class="text-right">1Y Debit</th>
+										<th class="text-right">1M Debit</th>
+										<th class="text-right">1Y Debit</th>
+										<th class="text-right">1M Debit</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr data-th-each="yearly : ${dashboard.yearlyDashboard}" data-th-object="${yearly}">
+										<td class="active text-right"><strong><a href="#" data-th-href="@{/dashboard/{year}/show(year=*{year})}" data-th-inline="text">[[*{year}]]</a></strong></td>
+										<td class="success text-right" data-th-inline="text"><i class="fa fa-dollar"></i>&nbsp;[[*{#numbers.formatDecimal(oneYearCredit,1,'COMMA',2,'POINT')}]]</td>
+										<td class="success text-right" data-th-inline="text"><i class="fa fa-dollar"></i>&nbsp;[[*{#numbers.formatDecimal(oneMonthCredit,1,'COMMA',2,'POINT')}]]</td>
+										<td class="warning text-right" data-th-inline="text"><i class="fa fa-rupee"></i>&nbsp;[[*{#numbers.formatDecimal(avgExchangeRate,1,'COMMA',2,'POINT')}]]</td>
+										<td class="danger text-right" data-th-inline="text"><i class="fa fa-dollar"></i>&nbsp;[[*{#numbers.formatDecimal(oneYearDebit,1,'COMMA',2,'POINT')}]]</td>
+										<td class="danger text-right" data-th-inline="text"><i class="fa fa-dollar"></i>&nbsp;[[*{#numbers.formatDecimal(oneMonthDebit,1,'COMMA',2,'POINT')}]]</td>
+										<td class="info text-right" data-th-inline="text"><i class="fa fa-rupee"></i>&nbsp;[[*{#numbers.formatDecimal(oneYearDebitConverted,1,'COMMA',2,'POINT')}]]</td>
+										<td class="info text-right" data-th-inline="text"><i class="fa fa-rupee"></i>&nbsp;[[*{#numbers.formatDecimal(oneMonthDebitConverted,1,'COMMA',2,'POINT')}]]</td>
+									</tr>
+									<tr data-th-if="${#lists.isEmpty(dashboard.yearlyDashboard)}">
+										<td class="text-center" colspan="8">No data available.</td>
+									</tr>
+								</tbody>
+								<tfoot>
+									<tr class="active">
+										<th class="text-right"><strong>Total</strong></th>
+										<th class="text-right" data-th-inline="text"><i class="fa fa-dollar"></i>&nbsp;[[${#numbers.formatDecimal(dashboard.totalCredit,1,'COMMA',2,'POINT')}]]</th>
+										<th></th>
+										<th class="text-right" data-th-inline="text"><i class="fa fa-rupee"></i>&nbsp;[[${#numbers.formatDecimal(dashboard.avgExchangeRate,1,'COMMA',2,'POINT')}]]</th>
+										<th class="text-right" data-th-inline="text"><i class="fa fa-dollar"></i>&nbsp;[[${#numbers.formatDecimal(dashboard.totalDebit,1,'COMMA',2,'POINT')}]]</th>
+										<th></th>
+										<th class="text-right" data-th-inline="text"><i class="fa fa-rupee"></i>&nbsp;[[${#numbers.formatDecimal(dashboard.totalDebitConverted,1,'COMMA',2,'POINT')}]]</th>
+										<th></th>
+									</tr>
+								</tfoot>
+							</table>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-		
-		<hr />
-		<div class="row">
-			<div class="col-md-12">
-				<p class="lead text-center">XE Rate</p>
-				<div class="chart-canvas"><canvas id="xeRateChart" height="100"></canvas></div>
-				<div id="chart_div"></div>
-			</div>
-		</div>
+		</section>
 	</div>
 	<script type="text/javascript" data-th-inline="javascript">
 		require(["jquery", "charts"], function($) {
 			google.charts.load('current', {packages: ['corechart', 'gauge']});
-			google.charts.setOnLoadCallback(drawChart);
+			google.charts.setOnLoadCallback(drawScoreGuage);
+			google.charts.setOnLoadCallback(drawXeChart);
+			google.charts.setOnLoadCallback(drawYearlyChart);
 
-			function drawChart() {
+			function drawScoreGuage() {
 				var score = [[${dashboard.score}]]
 				var data = google.visualization.arrayToDataTable([['Label', 'Value'], ['', score]]);
 				var options = {
@@ -77,10 +139,84 @@
 		    	    minorTicks: 5
 				};
 
-				var chart = new google.visualization.Gauge(document.getElementById('chart_div'));
+				var chart = new google.visualization.Gauge(document.getElementById('scoreGauge'));
 
 		        chart.draw(data, options);
 		    }
+			
+			function drawXeChart() {
+				var data = new google.visualization.DataTable();
+		      	data.addColumn('date', 'Transaction Date');
+		      	data.addColumn('number', 'Average');
+		      	data.addColumn('number', 'XE Rate');
+
+		      	data.addRows([
+			        [new Date(2012, 1, 1), 55.59, 45],    [new Date(2012, 4, 14), 55.59, 46],   [new Date(2012, 10, 1), 55.59, 47],
+			        [new Date(2013, 2, 19), 55.59, 48],   [new Date(2013, 3, 5), 55.59, 49],  [new Date(2013, 5, 22), 55.59, 50],
+			        [new Date(2013, 6, 1), 55.59, 51], [new Date(2013, 9, 18), 55.59, 50], [new Date(2013, 12, 31), 55.59, 49],
+			        [new Date(2014, 1, 1), 55.59, 44], [new Date(2014, 2, 1), 55.59, 46], [new Date(2014, 3, 14), 55.59, 43],
+			        [new Date(2014, 4, 1), 55.59, 52], [new Date(2014, 5, 1), 55.59, 42], [new Date(2014, 6, 1), 55.59, 44],
+			        [new Date(2014, 7, 1), 55.59, 47], [new Date(2014, 8, 1), 55.59, 52], [new Date(2014, 10, 1), 55.59, 53],
+			        [new Date(2015, 1, 1), 55.59, 54], [new Date(2015, 1, 15), 55.59, 50], [new Date(2015, 1, 21), 55.59, 47],
+			        [new Date(2015, 3, 1), 55.59, 55], [new Date(2015, 3, 1), 55.59, 58], [new Date(2015, 4, 1), 55.59, 59],
+			        [new Date(2015, 5, 1), 55.59, 64], [new Date(2015, 5, 14), 55.59, 60], [new Date(2015, 6, 1), 55.59, 58],
+			        [new Date(2015, 7, 1), 55.59, 63], [new Date(2015, 8, 1), 55.59, 64], [new Date(2015, 9, 1), 55.59, 65],
+			        [new Date(2015, 10, 1), 55.59, 56], [new Date(2015, 11, 11), 55.59, 52], [new Date(2015, 12, 15), 55.59, 57],
+			        [new Date(2016, 1, 1), 55.59, 62], [new Date(2016, 1, 10), 55.59, 64], [new Date(2016, 2, 1), 55.59, 67]
+		      	]);
+
+		      	var options = {
+	      			height: 500,
+		        	hAxis: {
+		          		title: 'Year'
+		        	},
+		        	vAxis: {
+		          		title: 'INR'
+		        	},
+		        	colors: ['#a52714', '#097138']
+		      	};
+
+		    	var chart = new google.visualization.LineChart(document.getElementById('xeChart'));
+				chart.draw(data, options);
+			}
+			
+			function drawYearlyChart() {
+				var data = new google.visualization.DataTable();
+				data.addColumn('string', 'Year');
+				data.addColumn('number', "Credit USD");
+				data.addColumn('number', "Debit USD");
+				data.addColumn('number', "Debit INR");
+				
+				data.addRows([
+					['2010',  21173,  12200, 548138],
+					['2011',  43838,   33500, 1561230],
+					['2012',  46749,  31020, 1640482],
+					['2013',  58325, 31511, 1844128],
+					['2014',  57332, 43243, 2605076],
+					['2015',    62728, 25170, 1585785],
+					['2016', 5743, 3003, 200800]
+				]);
+				var options = {
+					title: '',
+					height: 500,
+					// Gives each series an axis that matches the vAxes number below.
+					series: {
+						0: {targetAxisIndex: 0},
+						1: {targetAxisIndex: 0},
+						2: {targetAxisIndex: 1}
+					},
+					vAxes: {
+						// Adds titles to each axis.
+						0: {title: 'USD'},
+						1: {title: 'INR'}
+					},
+					hAxis: {
+						title: 'Year'
+					}
+				};
+				var chart = new google.visualization.LineChart(document.getElementById('yearlyChart'));
+		        chart.draw(data, options);
+			}
 		});
 	</script>
 	<footer data-th-include="fragments/layout :: footer"></footer>

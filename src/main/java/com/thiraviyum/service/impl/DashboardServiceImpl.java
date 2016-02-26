@@ -131,7 +131,7 @@ public class DashboardServiceImpl implements DashboardService {
 			yDashboard.setOneYearDebitConverted(oneYearDebitConverted);
 			yDashboard.setOneMonthDebitConverted(oneMonthDebitConverted);
 			if (oneYearDebit.compareTo(BigDecimal.ZERO) > 0 && oneYearDebitConverted.compareTo(BigDecimal.ZERO) > 0) {
-				dashboard.setAvgExchangeRate(oneYearDebitConverted.divide(oneYearDebit, 2, RoundingMode.UP));
+				yDashboard.setAvgExchangeRate(oneYearDebitConverted.divide(oneYearDebit, 2, RoundingMode.UP));
 			}
 			yDashboard.setCredits(yearlyCredits.get(year));
 			yDashboard.setDebits(yearlyDebits.get(year));
