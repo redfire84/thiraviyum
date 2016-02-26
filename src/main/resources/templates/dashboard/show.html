@@ -130,7 +130,7 @@
 			google.charts.setOnLoadCallback(drawYearlyChart);
 
 			function drawScoreGuage() {
-				var score = [[${dashboard.score}]]
+				var score = [[${dashboard.score}]];
 				var data = google.visualization.arrayToDataTable([['Label', 'Value'], ['', score]]);
 				var options = {
 		        	redFrom: 0, redTo: 50,
@@ -139,32 +139,19 @@
 		    	    minorTicks: 5
 				};
 
-				var chart = new google.visualization.Gauge(document.getElementById('scoreGauge'));
+				var chart = new google.visualization.Gauge($('#scoreGauge')[0]);
 
 		        chart.draw(data, options);
 		    }
 			
 			function drawXeChart() {
-				var data = new google.visualization.DataTable();
-		      	data.addColumn('date', 'Transaction Date');
-		      	data.addColumn('number', 'Average');
-		      	data.addColumn('number', 'XE Rate');
-
-		      	data.addRows([
-			        [new Date(2012, 1, 1), 55.59, 45],    [new Date(2012, 4, 14), 55.59, 46],   [new Date(2012, 10, 1), 55.59, 47],
-			        [new Date(2013, 2, 19), 55.59, 48],   [new Date(2013, 3, 5), 55.59, 49],  [new Date(2013, 5, 22), 55.59, 50],
-			        [new Date(2013, 6, 1), 55.59, 51], [new Date(2013, 9, 18), 55.59, 50], [new Date(2013, 12, 31), 55.59, 49],
-			        [new Date(2014, 1, 1), 55.59, 44], [new Date(2014, 2, 1), 55.59, 46], [new Date(2014, 3, 14), 55.59, 43],
-			        [new Date(2014, 4, 1), 55.59, 52], [new Date(2014, 5, 1), 55.59, 42], [new Date(2014, 6, 1), 55.59, 44],
-			        [new Date(2014, 7, 1), 55.59, 47], [new Date(2014, 8, 1), 55.59, 52], [new Date(2014, 10, 1), 55.59, 53],
-			        [new Date(2015, 1, 1), 55.59, 54], [new Date(2015, 1, 15), 55.59, 50], [new Date(2015, 1, 21), 55.59, 47],
-			        [new Date(2015, 3, 1), 55.59, 55], [new Date(2015, 3, 1), 55.59, 58], [new Date(2015, 4, 1), 55.59, 59],
-			        [new Date(2015, 5, 1), 55.59, 64], [new Date(2015, 5, 14), 55.59, 60], [new Date(2015, 6, 1), 55.59, 58],
-			        [new Date(2015, 7, 1), 55.59, 63], [new Date(2015, 8, 1), 55.59, 64], [new Date(2015, 9, 1), 55.59, 65],
-			        [new Date(2015, 10, 1), 55.59, 56], [new Date(2015, 11, 11), 55.59, 52], [new Date(2015, 12, 15), 55.59, 57],
-			        [new Date(2016, 1, 1), 55.59, 62], [new Date(2016, 1, 10), 55.59, 64], [new Date(2016, 2, 1), 55.59, 67]
-		      	]);
-
+				var jsonData = $.ajax({
+					url: [[@{/dashboard/chart/xe-rate}]],
+					dataType: 'json',
+					async: false
+				}).responseText;
+				var data = new google.visualization.DataTable(jsonData);
+		      	
 		      	var options = {
 	      			height: 500,
 		        	hAxis: {
@@ -176,45 +163,48 @@
 		        	colors: ['#a52714', '#097138']
 		      	};
 
-		    	var chart = new google.visualization.LineChart(document.getElementById('xeChart'));
+		    	var chart = new google.visualization.LineChart($('#xeChart')[0]);
 				chart.draw(data, options);
 			}
 			
 			function drawYearlyChart() {
 				var data = new google.visualization.DataTable();
-				data.addColumn('string', 'Year');
+				data.addColumn('date', 'Year');
 				data.addColumn('number', "Credit USD");
 				data.addColumn('number', "Debit USD");
 				data.addColumn('number', "Debit INR");
 				
 				data.addRows([
-					['2010',  21173,  12200, 548138],
-					['2011',  43838,   33500, 1561230],
-					['2012',  46749,  31020, 1640482],
-					['2013',  58325, 31511, 1844128],
-					['2014',  57332, 43243, 2605076],
-					['2015',    62728, 25170, 1585785],
-					['2016', 5743, 3003, 200800]
+					[new Date(2010, 11), 21173, 12200, 548138],
+					[new Date(2011, 11), 43838, 33500, 1561230],
+					[new Date(2012, 11), 46749, 31020, 1640482],
+					[new Date(2013, 11), 58325, 31511, 1844128],
+					[new Date(2014, 11), 57332, 43243, 2605076],
+					[new Date(2015, 11), 62728, 25170, 1585785],
+					[new Date(2016, 11), 5743, 3003, 200800]
 				]);
 				var options = {
 					title: '',
 					height: 500,
-					// Gives each series an axis that matches the vAxes number below.
 					series: {
 						0: {targetAxisIndex: 0},
 						1: {targetAxisIndex: 0},
 						2: {targetAxisIndex: 1}
 					},
 					vAxes: {
-						// Adds titles to each axis.
 						0: {title: 'USD'},
 						1: {title: 'INR'}
 					},
 					hAxis: {
-						title: 'Year'
+						title: 'Year',
+						ticks: [
+					        new Date(2010, 11), new Date(2011, 11), 
+					        new Date(2012, 11), new Date(2013, 11), 
+					        new Date(2014, 11), new Date(2015, 11),  new Date(2016, 11)
+		                ]
 					}
 				};
-				var chart = new google.visualization.LineChart(document.getElementById('yearlyChart'));
+				var chart = new google.visualization.LineChart($('#yearlyChart')[0]);
 		        chart.draw(data, options);
 			}
 		});
