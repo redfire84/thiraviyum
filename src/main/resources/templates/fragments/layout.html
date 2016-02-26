@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head data-th-fragment="head">
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
 <title>Thiraviyum</title>
 
 <link rel="stylesheet" href="#" data-th-href="@{/webjars/bootstrap/3.3.6/css/bootstrap.min.css}" />
@@ -28,10 +31,10 @@
 	        return ParsleyField.$element.parents('.form-group');
 	    },
 	    errorsContainer: function(ParsleyField) {
-	        return ParsleyField.$element.parents('.form-group');
+	        return ParsleyField.$element.parents('.error-block');
 	    },
 	    errorsWrapper: '<span class="help-block"></span>',
-	    errorTemplate: '<div></div>'
+	    errorTemplate: '<span></span>'
 	};
 </script>
 </head>

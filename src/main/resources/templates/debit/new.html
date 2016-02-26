@@ -22,18 +22,18 @@
 			</div>
 			<div class="form-group">
 				<label for="amount" class="col-md-2 control-label">Amount</label>
-				<div class="col-md-2">
+				<div class="col-md-2 error-block">
 					<div class="input-group">
-						<div class="input-group-addon"><i class="fa fa-dollar"></i></div>
+						<span class="input-group-addon"><i class="fa fa-dollar"></i></span>
 						<input type="number" min="1" max="10000" class="form-control" data-th-field="*{amount}" required="required" />
 					</div>
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="exchangeRate" class="col-md-2 control-label">Exchange Rate</label>
-				<div class="col-md-2">
+				<div class="col-md-2 error-block">
 					<div class="input-group">
-						<div class="input-group-addon"><i class="fa fa-dollar"></i></div>
+						<span class="input-group-addon"><i class="fa fa-dollar"></i></span>
 						<input type="text" min="20" max="100" class="form-control" data-th-field="*{exchangeRate}" required="required" data-parsley-type="number" />
 					</div>
 				</div>
