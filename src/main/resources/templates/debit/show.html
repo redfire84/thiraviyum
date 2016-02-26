@@ -8,7 +8,6 @@
 	<div class="container">
 		<ol class="breadcrumb">
 			<li><a href="#" data-th-href="@{/dashboard/show}">Dashboard</a></li>
-			<li><a href="#" data-th-href="@{/dashboard/list}">Yearly Detail</a></li>
 			<li><a href="#" data-th-href="@{/dashboard/{year}/show(year=${debit.effectiveYear})}" data-th-inline="text">[[${debit.effectiveYear}]]</a></li>
 			<li class="active">Debit</li>
 		</ol>
@@ -46,7 +45,7 @@
 			</div>
 			<div class="form-group">
 				<div class="col-md-offset-2 col-md-2">
-				<button type="button" class="btn btn-default" onclick="window.history.back()">Back</button>
+				<button type="button" class="btn btn-default" onclick="window.history.back()">No</button>
 					<button type="submit" class="btn btn-danger">Delete</button>
 				</div>
 			</div>

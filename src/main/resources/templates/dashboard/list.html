@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head data-th-replace="fragments/layout :: head">
-	<title>Dashboard Detail</title>
+	<title>Yearly Detail</title>
 </head>
 <body>
 	<header data-th-include="fragments/layout :: header"></header>
@@ -10,58 +10,107 @@
 			<div class="col-md-12">
 				<ol class="breadcrumb">
 					<li><a href="#" data-th-href="@{/dashboard/show}">Dashboard</a></li>
-					<li class="active">Yearly Detail</li>
+					<li class="active" data-th-inline="text">[[${year}]]</li>
 				</ol>
 				<hr />
 				<div data-th-replace="fragments/layout :: global-messages"></div>
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-md-12">
-				<table class="table table-bordered table-hover table-condensed">
-					<thead>
-						<tr class="active">
-							<th class="text-right">Years</th>
-							<th class="text-right">1Y Credit</th>
-							<th class="text-right">1M Credit</th>
-							<th class="text-right">1Y Avg. XE</th>
-							<th class="text-right">1Y Debit</th>
-							<th class="text-right">1M Debit</th>
-							<th class="text-right">1Y Debit</th>
-							<th class="text-right">1M Debit</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr data-th-each="yearly : ${dashboard.yearlyDashboard}" data-th-object="${yearly}">
-							<td class="active text-right"><strong><a href="#" data-th-href="@{/dashboard/{year}/show(year=*{year})}" data-th-inline="text">[[*{year}]]</a></strong></td>
-							<td class="success text-right" data-th-inline="text"><i class="fa fa-dollar"></i>&nbsp;[[*{#numbers.formatDecimal(oneYearCredit,1,'COMMA',2,'POINT')}]]</td>
-							<td class="success text-right" data-th-inline="text"><i class="fa fa-dollar"></i>&nbsp;[[*{#numbers.formatDecimal(oneMonthCredit,1,'COMMA',2,'POINT')}]]</td>
-							<td class="warning text-right" data-th-inline="text"><i class="fa fa-rupee"></i>&nbsp;[[*{#numbers.formatDecimal(avgExchangeRate,1,'COMMA',2,'POINT')}]]</td>
-							<td class="danger text-right" data-th-inline="text"><i class="fa fa-dollar"></i>&nbsp;[[*{#numbers.formatDecimal(oneYearDebit,1,'COMMA',2,'POINT')}]]</td>
-							<td class="danger text-right" data-th-inline="text"><i class="fa fa-dollar"></i>&nbsp;[[*{#numbers.formatDecimal(oneMonthDebit,1,'COMMA',2,'POINT')}]]</td>
-							<td class="info text-right" data-th-inline="text"><i class="fa fa-rupee"></i>&nbsp;[[*{#numbers.formatDecimal(oneYearDebitConverted,1,'COMMA',2,'POINT')}]]</td>
-							<td class="info text-right" data-th-inline="text"><i class="fa fa-rupee"></i>&nbsp;[[*{#numbers.formatDecimal(oneMonthDebitConverted,1,'COMMA',2,'POINT')}]]</td>
-						</tr>
-						<tr data-th-if="${#lists.isEmpty(dashboard.yearlyDashboard)}">
-							<td class="text-center" colspan="8">No data available.</td>
-						</tr>
-					</tbody>
-					<tfoot>
-						<tr class="active">
-							<th class="text-right"><strong>Total</strong></th>
-							<th class="text-right" data-th-inline="text"><i class="fa fa-dollar"></i>&nbsp;[[${#numbers.formatDecimal(dashboard.totalCredit,1,'COMMA',2,'POINT')}]]</th>
-							<th></th>
-							<th class="text-right" data-th-inline="text"><i class="fa fa-rupee"></i>&nbsp;[[${#numbers.formatDecimal(dashboard.avgExchangeRate,1,'COMMA',2,'POINT')}]]</th>
-							<th class="text-right" data-th-inline="text"><i class="fa fa-dollar"></i>&nbsp;[[${#numbers.formatDecimal(dashboard.totalDebit,1,'COMMA',2,'POINT')}]]</th>
-							<th></th>
-							<th class="text-right" data-th-inline="text"><i class="fa fa-rupee"></i>&nbsp;[[${#numbers.formatDecimal(dashboard.totalDebitConverted,1,'COMMA',2,'POINT')}]]</th>
-							<th></th>
-						</tr>
-					</tfoot>
-				</table>
+			<div class="col-md-6">
+				<div class="panel panel-primary">
+					<div class="panel-heading"><div class="panel-title">Credits</div></div>
+					<div class="panel-body">
+						<table id="creditTable" class="table table-bordered table-hover table-condensed">
+							<thead>
+								<tr>
+									<th>Date</th>
+									<th>Amount</th>
+									<th>Source</th>
+									<th>Comment</th>
+									<th></th>
+								</tr>
+							</thead>
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="panel panel-primary">
+					<div class="panel-heading"><div class="panel-title">Debits</div></div>
+					<div class="panel-body">
+						<table id="debitTable" class="table table-bordered table-hover table-condensed">
+							<thead>
+								<tr>
+									<th>Date</th>
+									<th>Amount</th>
+									<th>XE Rate</th>
+									<th>Comment</th>
+									<th></th>
+								</tr>
+							</thead>
+						</table>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
+	<script type="text/javascript" data-th-inline="javascript">
+		require(["jquery", "bootstrap-datatables"], function($) {
+			$('#creditTable').dataTable({
+				paging: false,
+				searching: false,
+				lengthChange: false,
+				info: false,
+				ajax: [[@{/credit/{year}/list(year=*{year},_csrf=${_csrf.token})}]],
+				columns: [
+					{ data: 'effectiveDate', type: "date", dateFormat: "yyyy-mm-dd" },
+					{ 
+						data: function(row, type, set, meta) {
+							return '<i class="fa fa-dollar"></i> ' + row.amount;
+						} 
+					},
+					{ data: 'source' },
+					{ data: 'comment' },
+					{
+						data: function(row, type, set, meta) {
+							var url = [[@{/credit/}]] + row.id + '/show';
+							return '<a href="' + url + '"><i class="fa fa-trash fa-2x text-danger"></i></a>';
+						},
+						orderable: false
+					}
+				]
+			});
+			$('#debitTable').dataTable({
+				paging: false,
+				searching: false,
+				lengthChange: false,
+				info: false,
+				ajax: [[@{/debit/{year}/list(year=*{year},_csrf=${_csrf.token})}]],
+				columns: [
+					{ data: 'effectiveDate' },
+					{ 
+						data: function(row, type, set, meta) {
+							return '<i class="fa fa-dollar"></i> ' + row.amount;
+						} 
+					},
+					{ 
+						data: function(row, type, set, meta) {
+							return '<i class="fa fa-rupee"></i> ' + row.exchangeRate;
+						} 
+					},
+					{ data: 'comment' },
+					{
+						data: function(row, type, set, meta) {
+							var url = [[@{/debit/}]] + row.id + '/show';
+							return '<a href="' + url + '"><i class="fa fa-trash fa-2x text-danger"></i></a>';
+						},
+						orderable: false
+					}
+				]
+			});
+		});
+	</script>
 	<footer data-th-include="fragments/layout :: footer"></footer>
 </body>
 </html>
