@@ -77,6 +77,6 @@ public class CreditController {
 		creditService.delete(credit);
 		sessionStatus.setComplete();
 		redirectAttributes.addFlashAttribute("successMsg", "Credit data has been deleted successfully.");
-		return "redirect:/dashboard/" + credit.getEffectiveYear() + "/show";
+		return "redirect:/dashboard/" + credit.getEffectiveYear() + "/list";
 	}
 }

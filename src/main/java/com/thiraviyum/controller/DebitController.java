@@ -77,6 +77,6 @@ public class DebitController {
 		debitService.delete(debit);
 		sessionStatus.setComplete();
 		redirectAttributes.addFlashAttribute("successMsg", "Debit data has been deleted successfully.");
-		return "redirect:/dashboard/" + debit.getEffectiveYear() + "/show";
+		return "redirect:/dashboard/" + debit.getEffectiveYear() + "/list";
 	}
 }

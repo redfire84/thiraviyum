@@ -77,20 +77,23 @@ public class DashboardController {
 	
 	@RequestMapping(value = "/chart/yearly-detail", method = RequestMethod.GET)
 	@ResponseBody
-	public ChartData yearlyDetailChart() {
-		RowData row1 = new RowData();
-		row1.addColumn(new Column<Integer>(10, null));
-		row1.addColumn(new Column<String>("A", null));
-		
-		RowData row2 = new RowData();
-		row2.addColumn(new Column<Integer>(20, null));
-		row2.addColumn(new Column<String>("B", null));
-		
+	public ChartData yearlyDetailChart(@ModelAttribute("dashboard") Dashboard dashboard) {
 		ChartData data = new ChartData();
-		data.addCol(new ColData("A", "A-label", null, "number"));
-		data.addCol(new ColData("B", "B-label", null, "string"));
-		data.addRow(row1);
-		data.addRow(row2);
+		data.addCol(new ColData(null, null, null, "date"));
+		data.addCol(new ColData(null, "Credit USD", null, "number"));
+		data.addCol(new ColData(null, "Debit USD", null, "number"));
+		data.addCol(new ColData(null, "Debit INR", null, "number"));
+		
+		if (dashboard.getYearlyDashboard() != null) {
+			for (YearlyDashboard yearlyDashboard : dashboard.getYearlyDashboard()) {
+				RowData row = new RowData();
+				row.addColumn(new Column<String>("Date(" + yearlyDashboard.getYear() + ", 0)", yearlyDashboard.getYear()));
+				row.addColumn(new Column<BigDecimal>(yearlyDashboard.getOneYearCredit(), null));
+				row.addColumn(new Column<BigDecimal>(yearlyDashboard.getOneYearDebit(), null));
+				row.addColumn(new Column<BigDecimal>(yearlyDashboard.getOneYearDebitConverted(), null));
+				data.addRow(row);
+			}
+		}
 		return data;
 	}
 }

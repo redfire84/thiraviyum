@@ -149,16 +149,16 @@
 					url: [[@{/dashboard/chart/xe-rate}]],
 					dataType: 'json',
 					async: false
-				}).responseText;
-				var data = new google.visualization.DataTable(jsonData);
+				});
+				var data = new google.visualization.DataTable(jsonData.responseText);
 		      	
 		      	var options = {
 	      			height: 500,
-		        	hAxis: {
-		          		title: 'Year'
-		        	},
 		        	vAxis: {
 		          		title: 'INR'
+		        	},
+		        	legend: {
+		        		position: 'top'
 		        	},
 		        	colors: ['#a52714', '#097138']
 		      	};
@@ -168,24 +168,18 @@
 			}
 			
 			function drawYearlyChart() {
-				var data = new google.visualization.DataTable();
-				data.addColumn('date', 'Year');
-				data.addColumn('number', "Credit USD");
-				data.addColumn('number', "Debit USD");
-				data.addColumn('number', "Debit INR");
+				var jsonData = $.ajax({
+					url: [[@{/dashboard/chart/yearly-detail}]],
+					dataType: 'json',
+					async: false
+				});
+				var data = new google.visualization.DataTable(jsonData.responseText);
 				
-				data.addRows([
-					[new Date(2010, 11), 21173, 12200, 548138],
-					[new Date(2011, 11), 43838, 33500, 1561230],
-					[new Date(2012, 11), 46749, 31020, 1640482],
-					[new Date(2013, 11), 58325, 31511, 1844128],
-					[new Date(2014, 11), 57332, 43243, 2605076],
-					[new Date(2015, 11), 62728, 25170, 1585785],
-					[new Date(2016, 11), 5743, 3003, 200800]
-				]);
 				var options = {
-					title: '',
 					height: 500,
+					legend: {
+		        		position: 'top'
+		        	},
 					series: {
 						0: {targetAxisIndex: 0},
 						1: {targetAxisIndex: 0},
@@ -196,12 +190,7 @@
 						1: {title: 'INR'}
 					},
 					hAxis: {
-						title: 'Year',
-						ticks: [
-					        new Date(2010, 11), new Date(2011, 11), 
-					        new Date(2012, 11), new Date(2013, 11), 
-					        new Date(2014, 11), new Date(2015, 11),  new Date(2016, 11)
-		                ]
+						format: 'y'
 					}
 				};
 				var chart = new google.visualization.LineChart($('#yearlyChart')[0]);
