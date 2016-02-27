@@ -45,7 +45,7 @@ public class DashboardController {
 		return "dashboard/show";
 	}
 	
-	@RequestMapping(value = "{year}/show", method = RequestMethod.GET)
+	@RequestMapping(value = "{year}/list", method = RequestMethod.GET)
 	public String detail(@PathVariable("year") String year, Model model) {
 		model.addAttribute("year", year);
 		return "dashboard/list";

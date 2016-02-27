@@ -9,6 +9,6 @@ import com.thiraviyum.domain.User;
 
 public interface CreditDao extends CrudRepository<Credit, Long> {
 
-	public List<Credit> findAllByCreditUserOrderByEffectiveDateDesc(User user);
+	public List<Credit> findAllByCreditUserOrderByEffectiveDate(User user);
 	public List<Credit> findAllByCreditUserAndEffectiveYearOrderByEffectiveDate(User user, String effectiveYear);
 }

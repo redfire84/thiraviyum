@@ -17,6 +17,19 @@
 			</div>
 		</div>
 		<div class="row">
+			<div class="col-md-2">
+				<a href="#" data-th-href="@{/dashboard/{year}/list(year=*{year} - 1)}" data-th-inline="text" class="btn btn-warning" title="Previous Year"><i class="fa fa-backward"></i>&nbsp;[[*{year} - 1]]</a>
+			</div>
+			<div class="col-md-8">
+			</div>
+			<div class="col-md-2 text-right">
+				<a href="#" data-th-href="@{/dashboard/{year}/list(year=*{year} + 1)}" data-th-inline="text" class="btn btn-warning" title="Next Year">[[*{year} + 1]]&nbsp;<i class="fa fa-forward"></i></a>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">&nbsp;</div>
+		</div>
+		<div class="row">
 			<div class="col-md-6">
 				<div class="panel panel-primary">
 					<div class="panel-heading"><div class="panel-title">Credits</div></div>

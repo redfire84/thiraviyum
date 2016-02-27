@@ -19,3 +19,7 @@ body {
 .nav-tabs-bordered > li > a {
 	border-color: #eeeeee #eeeeee #dddddd;
 }
+
+.tab-pane-table {
+	margin: 25px;
+}

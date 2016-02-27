@@ -74,8 +74,8 @@
 					</ul>
 					<div class="tab-content">
 						<div id="yearlyChart" class="tab-pane active"></div>
-						<div id="yearlyTable" class="tab-pane">
-							<table class="table table-bordered table-hover table-condensed">
+						<div id="yearlyTable" class="tab-pane tab-pane-table">
+							<table class="table table-bordered table-hover">
 								<thead>
 									<tr class="active">
 										<th class="text-right">Years</th>
@@ -90,7 +90,7 @@
 								</thead>
 								<tbody>
 									<tr data-th-each="yearly : ${dashboard.yearlyDashboard}" data-th-object="${yearly}">
-										<td class="active text-right"><strong><a href="#" data-th-href="@{/dashboard/{year}/show(year=*{year})}" data-th-inline="text">[[*{year}]]</a></strong></td>
+										<td class="active text-right"><strong><a href="#" data-th-href="@{/dashboard/{year}/list(year=*{year})}" data-th-inline="text">[[*{year}]]</a></strong></td>
 										<td class="success text-right" data-th-inline="text"><i class="fa fa-dollar"></i>&nbsp;[[*{#numbers.formatDecimal(oneYearCredit,1,'COMMA',2,'POINT')}]]</td>
 										<td class="success text-right" data-th-inline="text"><i class="fa fa-dollar"></i>&nbsp;[[*{#numbers.formatDecimal(oneMonthCredit,1,'COMMA',2,'POINT')}]]</td>
 										<td class="warning text-right" data-th-inline="text"><i class="fa fa-rupee"></i>&nbsp;[[*{#numbers.formatDecimal(avgExchangeRate,1,'COMMA',2,'POINT')}]]</td>

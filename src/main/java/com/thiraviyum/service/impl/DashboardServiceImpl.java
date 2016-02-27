@@ -38,8 +38,8 @@ public class DashboardServiceImpl implements DashboardService {
 	@Transactional
 	public Dashboard getDashboard(User user) {
 		Dashboard dashboard = new Dashboard();
-		List<Credit> credits = creditDao.findAllByCreditUserOrderByEffectiveDateDesc(user);
-		List<Debit> debits = debitDao.findAllByDebitUserOrderByEffectiveDateDesc(user);
+		List<Credit> credits = creditDao.findAllByCreditUserOrderByEffectiveDate(user);
+		List<Debit> debits = debitDao.findAllByDebitUserOrderByEffectiveDate(user);
 		
 		// Credit
 		BigDecimal totalCredit = BigDecimal.ZERO;
