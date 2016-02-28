@@ -16,8 +16,11 @@
 			<div data-th-replace="fragments/layout :: field-errors"></div>
 			<div class="form-group">
 				<label for="effectiveDate" class="col-md-2 control-label">Effective Date</label>
-				<div class="col-md-2">
-					<input type="date" class="form-control" data-th-field="*{effectiveDate}" required="required" />
+				<div class="col-md-2 error-block">
+					<div class="input-group">
+						<input type="text" class="form-control" data-th-field="*{effectiveDate}" required="required" readonly="readonly" />
+						<span class="input-group-addon btn date-picker"><i class="fa fa-calendar"></i></span>
+					</div>
 				</div>
 			</div>
 			<div class="form-group">
@@ -49,7 +52,17 @@
 		</form>
 	</div>
 	<script type="text/javascript">
-		require(["parsleyjs"]);
+		require(["jquery", "jquery-ui", "parsleyjs"], function($) {
+			$("#effectiveDate").datepicker({
+				changeYear: true,
+				changeMonth: true,
+				dateFormat: 'M d, yy'
+			});
+			
+			$(".date-picker").click(function() {
+				$("#effectiveDate").focus();
+			});
+		});
 	</script>
 	<footer data-th-include="fragments/layout :: footer"></footer>
 </body>

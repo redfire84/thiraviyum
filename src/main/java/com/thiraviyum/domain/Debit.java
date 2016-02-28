@@ -27,7 +27,7 @@ public class Debit extends BaseObject implements YearlyData {
 	@GeneratedValue
 	private Long id;
 	@Column
-	@DateTimeFormat(iso = ISO.DATE)
+	@DateTimeFormat(pattern = "MMM dd, yyyy")
 	@JsonFormat(pattern = "MMM dd, yyyy")
 	private Date effectiveDate;
 	@Column
