@@ -40,7 +40,6 @@
 									<th>Date</th>
 									<th>Amount</th>
 									<th>Source</th>
-									<th>Comment</th>
 									<th></th>
 								</tr>
 							</thead>
@@ -58,7 +57,6 @@
 									<th>Date</th>
 									<th>Amount</th>
 									<th>XE Rate</th>
-									<th>Comment</th>
 									<th></th>
 								</tr>
 							</thead>
@@ -84,7 +82,6 @@
 						} 
 					},
 					{ data: 'source' },
-					{ data: 'comment' },
 					{
 						data: function(row, type, set, meta) {
 							var url = [[@{/credit/}]] + row.id + '/show';
@@ -112,7 +109,6 @@
 							return '<i class="fa fa-rupee"></i> ' + row.exchangeRate;
 						} 
 					},
-					{ data: 'comment' },
 					{
 						data: function(row, type, set, meta) {
 							var url = [[@{/debit/}]] + row.id + '/show';

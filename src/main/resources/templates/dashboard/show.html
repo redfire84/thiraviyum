@@ -5,13 +5,16 @@
 </head>
 <body>
 	<header data-th-include="fragments/layout :: header"></header>
-	<div class="container">
-		<ol class="breadcrumb">
-			<li class="active">Dashboard</li>
-		</ol>
-		<hr />
-		<div data-th-replace="fragments/layout :: global-messages"></div>
-		<section id="dashboardSection">
+	<section id="breadcrum-section">
+		<div class="container">
+			<ol class="breadcrumb">
+				<li class="active">Dashboard</li>
+			</ol>
+			<div data-th-replace="fragments/layout :: global-messages"></div>
+		</div>
+	</section>
+	<section id="dashboard-section" class="section-dashboard">
+		<div class="container">
 			<div class="row">
 				<div class="col-md-4 col-md-offset-1">
 					<p class="text-dashboard">Your Score</p>
@@ -26,7 +29,7 @@
 							<p class="text-dashboard"><i class="fa fa-dollar"></i>&nbsp;<span data-th-text="${#numbers.formatDecimal(dashboard.totalCredit,1,'COMMA',2,'POINT')}">300,000</span></p>
 						</div>
 						<div class="col-md-3">
-							<a class="btn btn-success" href="#" data-th-href="@{/credit/new}">Add</a>
+							<a class="btn btn-default" href="#" data-th-href="@{/credit/new}">Add</a>
 						</div>
 					</div>
 					<hr />
@@ -42,33 +45,35 @@
 							</p>
 						</div>
 						<div class="col-md-3">
-							<a class="btn btn-success" href="#" data-th-href="@{/debit/new}">Add</a>
+							<a class="btn btn-default" href="#" data-th-href="@{/debit/new}">Add</a>
 						</div>
 					</div>
 					<hr />
 					<div class="row">
 						<div class="col-md-4 col-md-offset-5">
-							<a href="#yearlyDetailSection" class="btn btn-primary btn-block">View Details</a>
+							<a href="#yearlydetail-section" class="btn btn-primary btn-block">View Details</a>
 						</div>
 					</div>
 				</div>
 			</div>
-			<hr />
-		</section>
-		<section id="xeRateSection">
+		</div>
+	</section>
+	<section id="xerate-section" class="section-dashboard">
+		<div class="container">
 			<div class="row">
 				<div class="col-md-12">
 					<p class="text-center text-dashboard">XE Rate</p>
 					<div id="xeChart"></div>
 				</div>
 			</div>
-			<hr />
-		</section>
-		<section id="yearlyDetailSection">
+		</div>
+	</section>
+	<section id="yearlydetail-section" class="section-dashboard">
+		<div class="container">
 			<div class="row">
 				<div class="col-md-12">
 					<p class="text-center text-dashboard">Yearly Detail</p>
-					<ul class="nav nav-tabs nav-tabs-bordered">
+					<ul class="nav nav-pills">
 	  					<li class="active"><a href="#" data-target="#yearlyChart" data-toggle="tab">Chart</a></li>
 	  					<li><a href="#" data-target="#yearlyTable" data-toggle="tab">Table</a></li>
 					</ul>
@@ -120,8 +125,9 @@
 					</div>
 				</div>
 			</div>
-		</section>
-	</div>
+		</div>
+	</section>
+	
 	<script type="text/javascript" data-th-inline="javascript">
 		require(["jquery", "charts"], function($) {
 			google.charts.load('current', {packages: ['corechart', 'gauge']});
@@ -153,7 +159,8 @@
 				var data = new google.visualization.DataTable(jsonData.responseText);
 		      	
 		      	var options = {
-	      			height: 500,
+	      			height: 300,
+	      			backgroundColor: '#65c6c3',
 		        	vAxis: {
 		          		title: 'INR'
 		        	},
@@ -176,7 +183,8 @@
 				var data = new google.visualization.DataTable(jsonData.responseText);
 				
 				var options = {
-					height: 500,
+					height: 300,
+					backgroundColor: '#FFF0A3',
 					legend: {
 		        		position: 'top'
 		        	},

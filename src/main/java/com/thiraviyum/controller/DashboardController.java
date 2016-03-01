@@ -2,8 +2,6 @@ package com.thiraviyum.controller;
 
 import java.math.BigDecimal;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -30,7 +28,6 @@ import com.thiraviyum.service.DashboardService;
 @RequestMapping(value = "/dashboard")
 @SessionAttributes(names = "dashboard")
 public class DashboardController {
-	private static final Logger logger = LoggerFactory.getLogger(DashboardController.class);
 	
 	@Autowired
 	private DashboardService dashboardService;

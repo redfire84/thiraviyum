@@ -2,6 +2,18 @@ body {
 	padding-top: 70px;
 }
 
+#dashboard-section {
+	color: #fff;
+    background-color: #F46A6A;
+}
+#xerate-section {
+    background-color: #65c6c3;
+	
+}
+#yearlydetail-section {
+	background-color: #FFF0A3;
+}
+
 #creditTable tbody tr > td:nth-child(2) {
 	text-align:right !important;
 }
@@ -10,9 +22,12 @@ body {
 #debitTable tbody tr > td:nth-child(3) {
 	text-align:right !important;
 }
-
+.section-dashboard {
+	padding: 60px 0;
+    border-top: 10px solid rgba(0,0,0,0.1);
+}
 .text-dashboard {
-	font-family: cursive;
+	/*font-family: cursive;*/
 	font-size: 20px;
 }
 
