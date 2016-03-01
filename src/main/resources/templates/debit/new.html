@@ -15,8 +15,8 @@
 		<form action="#" data-th-action="@{/debit/create}" method="post" data-th-object="${debit}" class="form-horizontal" data-parsley-validate="true">
 			<div data-th-replace="fragments/layout :: field-errors"></div>
 			<div class="form-group">
-				<label for="effectiveDate" class="col-md-2 control-label">Effective Date</label>
-				<div class="col-md-2 error-block">
+				<label for="effectiveDate" class="col-md-6 col-xs-6 control-label">Effective Date</label>
+				<div class="col-md-2 col-xs-6 error-block">
 					<div class="input-group">
 						<input type="text" class="form-control" data-th-field="*{effectiveDate}" required="required" readonly="readonly" />
 						<span class="input-group-addon btn date-picker"><i class="fa fa-calendar"></i></span>
@@ -24,8 +24,8 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="amount" class="col-md-2 control-label">Amount</label>
-				<div class="col-md-2 error-block">
+				<label for="amount" class="col-md-6 col-xs-6 control-label">Amount</label>
+				<div class="col-md-2 col-xs-6 error-block">
 					<div class="input-group">
 						<span class="input-group-addon"><i class="fa fa-dollar"></i></span>
 						<input type="text" min="1" max="10000" class="form-control" data-th-field="*{amount}" required="required" />
@@ -33,8 +33,8 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="exchangeRate" class="col-md-2 control-label">Exchange Rate</label>
-				<div class="col-md-2 error-block">
+				<label for="exchangeRate" class="col-md-6 col-xs-6 control-label">Exchange Rate</label>
+				<div class="col-md-2 col-xs-6 error-block">
 					<div class="input-group">
 						<span class="input-group-addon"><i class="fa fa-dollar"></i></span>
 						<input type="text" min="20" max="100" class="form-control" data-th-field="*{exchangeRate}" required="required" data-parsley-type="number" />
@@ -42,13 +42,13 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="comment" class="col-md-2 control-label">Comment</label>
-				<div class="col-md-2">
+				<label for="comment" class="col-md-6 col-xs-6 control-label">Comment</label>
+				<div class="col-md-2 col-xs-6">
 					<input type="text" class="form-control" data-th-field="*{comment}" maxlength="100" />
 				</div>
 			</div>
 			<div class="form-group">
-				<div class="col-md-offset-2 col-md-2">
+				<div class="col-xs-offset-6 col-xs-6 col-md-offset-6 col-md-2">
 					<button type="submit" class="btn btn-primary btn-block">Add</button>
 				</div>
 			</div>

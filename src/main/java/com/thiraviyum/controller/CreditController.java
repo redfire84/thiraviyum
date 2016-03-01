@@ -63,7 +63,7 @@ public class CreditController {
 			return "redirect:/dashboard/show";
 		}
 		model.addAttribute("credit", credit);
-		model.addAttribute("warningMsg", "Are you sure you want to delete this credit?");
+		model.addAttribute("errorMsg", "Are you sure you want to delete this credit?");
 		return "credit/show";
 	}
 	

@@ -16,37 +16,37 @@
 		<form action="#" data-th-action="@{/debit/{id}/delete(id=*{id})}" method="post" data-th-object="${debit}" class="form-horizontal" data-parsley-validate="true">
 			<input type="hidden" name="_method" value="delete" />
 			<div class="form-group">
-				<label class="col-md-2 control-label">Effective Date</label>
-				<div class="col-md-2">
+				<label class="col-xs-6 control-label">Effective Date</label>
+				<div class="col-xs-6">
 					<p class="form-control-static" data-th-text="${#dates.format(debit.effectiveDate, 'MMM dd, yyyy')}"></p>
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="amount" class="col-md-2 control-label">Amount</label>
-				<div class="col-md-2">
+				<label for="amount" class="col-xs-6 control-label">Amount</label>
+				<div class="col-xs-6">
 					<div class="input-group">
 						<p class="form-control-static" data-th-inline="text"><i class="fa fa-dollar"></i>&nbsp;[[*{amount}]]</p>
 					</div>
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="col-md-2 control-label">Exchange Rate</label>
-				<div class="col-md-2">
+				<label class="col-xs-6 control-label">Exchange Rate</label>
+				<div class="col-xs-6">
 					<div class="input-group">
 						<p class="form-control-static" data-th-inline="text"><i class="fa fa-dollar"></i>&nbsp;[[*{exchangeRate}]]</p>
 					</div>
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="col-md-2 control-label">Comment</label>
-				<div class="col-md-2">
+				<label class="col-xs-6 control-label">Comment</label>
+				<div class="col-xs-6">
 					<p class="form-control-static" data-th-text="*{comment}"></p>
 				</div>
 			</div>
 			<div class="form-group">
-				<div class="col-md-offset-2 col-md-2">
-				<button type="button" class="btn btn-default" onclick="window.history.back()">No</button>
+				<div class="col-xs-offset-6 col-xs-6">
 					<button type="submit" class="btn btn-danger">Delete</button>
+					<button type="button" class="btn btn-default" onclick="window.history.back()">No</button>
 				</div>
 			</div>
 		</form>

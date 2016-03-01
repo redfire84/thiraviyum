@@ -63,7 +63,7 @@ public class DebitController {
 			return "redirect:/dashboard/show";
 		}
 		model.addAttribute("debit", debit);
-		model.addAttribute("warningMsg", "Are you sure you want to delete this debit?");
+		model.addAttribute("errorMsg", "Are you sure you want to delete this debit?");
 		return "debit/show";
 	}
 	

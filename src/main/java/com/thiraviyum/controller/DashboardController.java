@@ -77,9 +77,9 @@ public class DashboardController {
 	public ChartData yearlyDetailChart(@ModelAttribute("dashboard") Dashboard dashboard) {
 		ChartData data = new ChartData();
 		data.addCol(new ColData(null, null, null, "date"));
-		data.addCol(new ColData(null, "Credit USD", null, "number"));
-		data.addCol(new ColData(null, "Debit USD", null, "number"));
-		data.addCol(new ColData(null, "Debit INR", null, "number"));
+		data.addCol(new ColData(null, "Cr USD", null, "number"));
+		data.addCol(new ColData(null, "Dr USD", null, "number"));
+		data.addCol(new ColData(null, "INR", null, "number"));
 		
 		if (dashboard.getYearlyDashboard() != null) {
 			for (YearlyDashboard yearlyDashboard : dashboard.getYearlyDashboard()) {

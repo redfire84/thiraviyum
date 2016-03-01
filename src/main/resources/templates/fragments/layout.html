@@ -7,12 +7,14 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black" />
 <title>Thiraviyum</title>
 
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Dosis:700|Open+Sans:400,700|Pacifico" />
 <link rel="stylesheet" href="#" data-th-href="@{/webjars/bootstrap/3.3.6/css/bootstrap.min.css}" />
 <link rel="stylesheet" href="#" data-th-href="@{/webjars/datatables-plugins/1.10.10/integration/bootstrap/3/dataTables.bootstrap.css}" />
 <link rel="stylesheet" href="#" data-th-href="@{/webjars/font-awesome/4.5.0/css/font-awesome.min.css}" />
 <link rel="stylesheet" href="#" data-th-href="@{/webjars/datatables-plugins/1.10.10/integration/font-awesome/dataTables.fontAwesome.css}" />
 <link rel="stylesheet" href="#" data-th-href="@{/css/app.css}" />
 
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript" src="#" data-th-src="@{/webjarsjs}"></script>
 <script type="text/javascript" src="#" data-th-src="@{/webjars/requirejs/2.1.22/require.min.js}"></script>
 <script type="text/javascript" src="#" data-th-src="@{/js/config.js}"></script>
@@ -43,26 +45,34 @@
 		<nav class="navbar navbar-inverse navbar-fixed-top">
 			<div class="container">
 				<div class="navbar-header">
-					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
-				        <span class="sr-only">Toggle navigation</span>
+					<button type="button" class="navbar-toggle" data-th-if="${#authorization.expression('isAuthenticated()')}" 
+							data-toggle="collapse" data-target="#navbar-collapse-1">
 				        <span class="icon-bar"></span>
 				        <span class="icon-bar"></span>
 				        <span class="icon-bar"></span>
 				      </button>
-					<a class="navbar-brand" href="#" data-th-href="@{/}">Thiraviyum</a>
+					<a class="navbar-brand text-dashboard" href="#" data-th-href="@{/}">Thiraviyum</a>
 				</div>
-				<div id="navbar-collapse-1" class="collapse navbar-collapse" data-th-if="${#authorization.expression('isAuthenticated()')}">
-					<form action="#" data-th-action="@{/logout}" method="post" class="navbar-form navbar-right">
-						<p class="text-muted">
-							<b><span data-th-text="${#authentication.name}">Username</span></b>
-							(<button type="submit" class="btn btn-link btn-xs" title="Logout">Logout</button>)
-						</p>
-					</form>
+				<div id="navbar-collapse-1" class="navbar-collapse collapse" data-th-if="${#authorization.expression('isAuthenticated()')}">
+					<ul class="nav navbar-nav navbar-right">
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span data-th-text="${#authentication.name}">Username</span>&nbsp;<span class="caret"></span></a>
+							<ul class="dropdown-menu">
+								<li><a href="#">Profile</a></li>
+								<li><a id="logout-btn-1" href="#">Logout</a></li>
+							</ul>
+						</li>
+					</ul>
+					<form id="logout-form-1" action="#" data-th-action="@{/logout}" method="post"></form>
 				</div>
 			</div>
 		</nav>
 		<script type="text/javascript">
-			require(["bootstrap"]);
+			require(["jquery", "bootstrap"], function($) {
+				$("#logout-btn-1").click(function(e) {
+					$("#logout-form-1").submit();
+				});
+			});
 		</script>
 	</header>
 	

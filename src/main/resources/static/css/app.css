@@ -1,7 +1,12 @@
 body { 
+	font-family: "Open Sans",Arial,sans-serif;
 	padding-top: 70px;
+    /*background-color: #f5f5f5;*/
 }
 
+#breadcrum-section {
+	/*background-color: #FFF0A3;*/
+}
 #dashboard-section {
 	color: #fff;
     background-color: #F46A6A;
@@ -27,8 +32,8 @@ body {
     border-top: 10px solid rgba(0,0,0,0.1);
 }
 .text-dashboard {
-	/*font-family: cursive;*/
-	font-size: 20px;
+	font-family: "Dosis",sans-serif;
+	font-size: 24px;
 }
 
 .nav-tabs-bordered > li > a {

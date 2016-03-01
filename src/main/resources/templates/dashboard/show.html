@@ -13,39 +13,54 @@
 			<div data-th-replace="fragments/layout :: global-messages"></div>
 		</div>
 	</section>
+	
 	<section id="dashboard-section" class="section-dashboard">
 		<div class="container">
 			<div class="row">
-				<div class="col-md-4 col-md-offset-1">
-					<p class="text-dashboard">Your Score</p>
-					<div id="scoreGauge" style="width: 400px; height: 200px;"></div>
+				<div class="col-sm-4 col-sm-offset-1 hidden-xs">
+					<p class="text-dashboard">Score:</p>
+					<div id="scoreGauge"></div>
 				</div>
-				<div class="col-md-6">
+				<div class="clearfix visible-md-block">
+					<hr />
+				</div>
+				<div class="col-sm-7">
 					<div class="row">
-						<div class="col-md-5">
-							<p class="text-dashboard">Year To Date Credit</p>
+						<div class="col-sm-5 col-xs-6">
+							<p class="text-dashboard">Year To Date Credit:</p>
 						</div>
-						<div class="col-md-4">
+						<div class="col-sm-5 col-xs-6">
 							<p class="text-dashboard"><i class="fa fa-dollar"></i>&nbsp;<span data-th-text="${#numbers.formatDecimal(dashboard.totalCredit,1,'COMMA',2,'POINT')}">300,000</span></p>
 						</div>
-						<div class="col-md-3">
+						<div class="col-md-2 col-sm-12 col-xs-12">
 							<a class="btn btn-default" href="#" data-th-href="@{/credit/new}">Add</a>
 						</div>
 					</div>
 					<hr />
 					<div class="row">
-						<div class="col-md-5">
-							<p class="text-dashboard">Year To Date Debit</p>
+						<div class="col-sm-5 col-xs-6">
+							<p class="text-dashboard">Year To Date Debit:</p>
 						</div>
-						<div class="col-md-4">
+						<div class="col-sm-5 col-xs-6">
 							<p class="text-dashboard">
 							<i class="fa fa-dollar"></i>&nbsp;<span data-th-text="${#numbers.formatDecimal(dashboard.totalDebit,1,'COMMA',2,'POINT')}">200,000</span>
 							<br />
 							<i class="fa fa-rupee"></i>&nbsp;<span data-th-text="${#numbers.formatDecimal(dashboard.totalDebitConverted,1,'COMMA',2,'POINT')}">1,00,00,000</span>
 							</p>
 						</div>
-						<div class="col-md-3">
+						<div class="col-md-2 col-sm-12 col-xs-12">
 							<a class="btn btn-default" href="#" data-th-href="@{/debit/new}">Add</a>
+						</div>
+					</div>
+					<div class="clearfix visible-xs-block">
+						<hr />
+					</div>
+					<div class="row visible-xs-block">
+						<div class="col-xs-6">
+							<p class="text-dashboard">Your Score:</p>
+						</div>
+						<div class="col-xs-6">
+							<span class="text-dashboard" data-th-text="${#numbers.formatDecimal(dashboard.score,1,'COMMA',2,'POINT')}"></span>
 						</div>
 					</div>
 					<hr />
@@ -74,62 +89,104 @@
 				<div class="col-md-12">
 					<p class="text-center text-dashboard">Yearly Detail</p>
 					<ul class="nav nav-pills">
-	  					<li class="active"><a href="#" data-target="#yearlyChart" data-toggle="tab">Chart</a></li>
-	  					<li><a href="#" data-target="#yearlyTable" data-toggle="tab">Table</a></li>
+	  					<li class="active"><a href="#" data-target="#yearlyChartTab" data-toggle="tab">Chart</a></li>
+	  					<li><a href="#" data-target="#yearlyTableTab" data-toggle="tab">Table</a></li>
 					</ul>
 					<div class="tab-content">
-						<div id="yearlyChart" class="tab-pane active"></div>
-						<div id="yearlyTable" class="tab-pane tab-pane-table">
-							<table class="table table-bordered table-hover">
-								<thead>
-									<tr class="active">
-										<th class="text-right">Years</th>
-										<th class="text-right">1Y Credit</th>
-										<th class="text-right">1M Credit</th>
-										<th class="text-right">1Y Avg. XE</th>
-										<th class="text-right">1Y Debit</th>
-										<th class="text-right">1M Debit</th>
-										<th class="text-right">1Y Debit</th>
-										<th class="text-right">1M Debit</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr data-th-each="yearly : ${dashboard.yearlyDashboard}" data-th-object="${yearly}">
-										<td class="active text-right"><strong><a href="#" data-th-href="@{/dashboard/{year}/list(year=*{year})}" data-th-inline="text">[[*{year}]]</a></strong></td>
-										<td class="success text-right" data-th-inline="text"><i class="fa fa-dollar"></i>&nbsp;[[*{#numbers.formatDecimal(oneYearCredit,1,'COMMA',2,'POINT')}]]</td>
-										<td class="success text-right" data-th-inline="text"><i class="fa fa-dollar"></i>&nbsp;[[*{#numbers.formatDecimal(oneMonthCredit,1,'COMMA',2,'POINT')}]]</td>
-										<td class="warning text-right" data-th-inline="text"><i class="fa fa-rupee"></i>&nbsp;[[*{#numbers.formatDecimal(avgExchangeRate,1,'COMMA',2,'POINT')}]]</td>
-										<td class="danger text-right" data-th-inline="text"><i class="fa fa-dollar"></i>&nbsp;[[*{#numbers.formatDecimal(oneYearDebit,1,'COMMA',2,'POINT')}]]</td>
-										<td class="danger text-right" data-th-inline="text"><i class="fa fa-dollar"></i>&nbsp;[[*{#numbers.formatDecimal(oneMonthDebit,1,'COMMA',2,'POINT')}]]</td>
-										<td class="info text-right" data-th-inline="text"><i class="fa fa-rupee"></i>&nbsp;[[*{#numbers.formatDecimal(oneYearDebitConverted,1,'COMMA',2,'POINT')}]]</td>
-										<td class="info text-right" data-th-inline="text"><i class="fa fa-rupee"></i>&nbsp;[[*{#numbers.formatDecimal(oneMonthDebitConverted,1,'COMMA',2,'POINT')}]]</td>
-									</tr>
-									<tr data-th-if="${#lists.isEmpty(dashboard.yearlyDashboard)}">
-										<td class="text-center" colspan="8">No data available.</td>
-									</tr>
-								</tbody>
-								<tfoot>
-									<tr class="active">
-										<th class="text-right"><strong>Total</strong></th>
-										<th class="text-right" data-th-inline="text"><i class="fa fa-dollar"></i>&nbsp;[[${#numbers.formatDecimal(dashboard.totalCredit,1,'COMMA',2,'POINT')}]]</th>
-										<th></th>
-										<th class="text-right" data-th-inline="text"><i class="fa fa-rupee"></i>&nbsp;[[${#numbers.formatDecimal(dashboard.avgExchangeRate,1,'COMMA',2,'POINT')}]]</th>
-										<th class="text-right" data-th-inline="text"><i class="fa fa-dollar"></i>&nbsp;[[${#numbers.formatDecimal(dashboard.totalDebit,1,'COMMA',2,'POINT')}]]</th>
-										<th></th>
-										<th class="text-right" data-th-inline="text"><i class="fa fa-rupee"></i>&nbsp;[[${#numbers.formatDecimal(dashboard.totalDebitConverted,1,'COMMA',2,'POINT')}]]</th>
-										<th></th>
-									</tr>
-								</tfoot>
-							</table>
+						<div id="yearlyChartTab" class="tab-pane active">
+							<div id="yearlyChart"></div>
+						</div>
+						<div id="yearlyTableTab" class="tab-pane tab-pane-table">
+							<div class="panel panel-primary">
+								<div class="panel-heading text-right">Show:&nbsp;
+									<label class="radio-inline">
+										<input type="radio" name="yearlyTableDataWindow" checked="checked" value="1Y" /> 1Y
+									</label>
+									<label class="radio-inline">
+										<input type="radio" name="yearlyTableDataWindow" value="1M" /> 1M
+									</label>
+								</div>
+								<div class="panel-body">
+									<div class="table-responsive">
+										<table id="yearlyTable" class="table table-stripped table-hover">
+											<thead>
+												<tr>
+													<th class="text-right">Years</th>
+													<th class="text-right">1Y Credit</th>
+													<th class="text-right">1M Credit</th>
+													<th class="text-right">1Y Avg. XE</th>
+													<th class="text-right">1Y Debit</th>
+													<th class="text-right">1M Debit</th>
+													<th class="text-right">1Y Debit</th>
+													<th class="text-right">1M Debit</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr data-th-each="yearly : ${dashboard.yearlyDashboard}" data-th-object="${yearly}">
+													<td class="text-right"><strong><a href="#" data-th-href="@{/dashboard/{year}/list(year=*{year})}" data-th-inline="text">[[*{year}]]</a></strong></td>
+													<td class="text-right" data-th-inline="text"><i class="fa fa-dollar"></i>&nbsp;[[*{#numbers.formatDecimal(oneYearCredit,1,'COMMA',2,'POINT')}]]</td>
+													<td class="text-right" data-th-inline="text"><i class="fa fa-dollar"></i>&nbsp;[[*{#numbers.formatDecimal(oneMonthCredit,1,'COMMA',2,'POINT')}]]</td>
+													<td class="text-right" data-th-inline="text"><i class="fa fa-rupee"></i>&nbsp;[[*{#numbers.formatDecimal(avgExchangeRate,1,'COMMA',2,'POINT')}]]</td>
+													<td class="text-right" data-th-inline="text"><i class="fa fa-dollar"></i>&nbsp;[[*{#numbers.formatDecimal(oneYearDebit,1,'COMMA',2,'POINT')}]]</td>
+													<td class="text-right" data-th-inline="text"><i class="fa fa-dollar"></i>&nbsp;[[*{#numbers.formatDecimal(oneMonthDebit,1,'COMMA',2,'POINT')}]]</td>
+													<td class="text-right" data-th-inline="text"><i class="fa fa-rupee"></i>&nbsp;[[*{#numbers.formatDecimal(oneYearDebitConverted,1,'COMMA',2,'POINT')}]]</td>
+													<td class="text-right" data-th-inline="text"><i class="fa fa-rupee"></i>&nbsp;[[*{#numbers.formatDecimal(oneMonthDebitConverted,1,'COMMA',2,'POINT')}]]</td>
+												</tr>
+												<tr data-th-if="${#lists.isEmpty(dashboard.yearlyDashboard)}">
+													<td class="text-center" colspan="8">No data available.</td>
+												</tr>
+											</tbody>
+											<tfoot>
+												<tr>
+													<th class="text-right"><strong>Total</strong></th>
+													<th class="text-right" data-th-inline="text"><i class="fa fa-dollar"></i>&nbsp;[[${#numbers.formatDecimal(dashboard.totalCredit,1,'COMMA',2,'POINT')}]]</th>
+													<th></th>
+													<th class="text-right" data-th-inline="text"><i class="fa fa-rupee"></i>&nbsp;[[${#numbers.formatDecimal(dashboard.avgExchangeRate,1,'COMMA',2,'POINT')}]]</th>
+													<th class="text-right" data-th-inline="text"><i class="fa fa-dollar"></i>&nbsp;[[${#numbers.formatDecimal(dashboard.totalDebit,1,'COMMA',2,'POINT')}]]</th>
+													<th></th>
+													<th class="text-right" data-th-inline="text"><i class="fa fa-rupee"></i>&nbsp;[[${#numbers.formatDecimal(dashboard.totalDebitConverted,1,'COMMA',2,'POINT')}]]</th>
+													<th></th>
+												</tr>
+											</tfoot>
+										</table>
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</section>
-	
+	<script type="text/javascript">
+	require(["jquery"], function($) {
+		
+		handleYearlyTableDataWindow($("input[name='yearlyTableDataWindow']").val());
+		$("input[name='yearlyTableDataWindow']").click(function() {
+			handleYearlyTableDataWindow($(this).val());
+		});
+		
+		function handleYearlyTableDataWindow(val) {
+			if (val == "1Y") {
+				$("#yearlyTable tfooter").show();
+				$("#yearlyTable th:nth-child(3), #yearlyTable th:nth-child(6), #yearlyTable th:nth-child(8)").hide();
+				$("#yearlyTable td:nth-child(3), #yearlyTable td:nth-child(6), #yearlyTable td:nth-child(8)").hide();
+				$("#yearlyTable th:nth-child(2), #yearlyTable th:nth-child(4), #yearlyTable th:nth-child(5), #yearlyTable th:nth-child(7)").show();
+				$("#yearlyTable td:nth-child(2), #yearlyTable td:nth-child(4), #yearlyTable td:nth-child(5), #yearlyTable td:nth-child(7)").show();
+				$("#yearlyTable tfoot").show();
+			}
+			else {
+				$("#yearlyTable th:nth-child(3), #yearlyTable th:nth-child(6), #yearlyTable th:nth-child(8)").show();
+				$("#yearlyTable td:nth-child(3), #yearlyTable td:nth-child(6), #yearlyTable td:nth-child(8)").show();
+				$("#yearlyTable th:nth-child(2), #yearlyTable th:nth-child(4), #yearlyTable th:nth-child(5), #yearlyTable th:nth-child(7)").hide();
+				$("#yearlyTable td:nth-child(2), #yearlyTable td:nth-child(4), #yearlyTable td:nth-child(5), #yearlyTable td:nth-child(7)").hide();
+				$("#yearlyTable tfoot").hide();
+			}
+		}
+	});
+	</script>
 	<script type="text/javascript" data-th-inline="javascript">
-		require(["jquery", "charts"], function($) {
+		require(["jquery"], function($) {
 			google.charts.load('current', {packages: ['corechart', 'gauge']});
 			google.charts.setOnLoadCallback(drawScoreGuage);
 			google.charts.setOnLoadCallback(drawXeChart);
