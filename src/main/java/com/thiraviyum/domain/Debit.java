@@ -27,20 +27,25 @@ public class Debit extends BaseObject implements YearlyData {
 	@Id
 	@GeneratedValue
 	private Long id;
-	@Column
+	
+	@Column(nullable = false)
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "MMM dd, yyyy")
 	@JsonFormat(pattern = "MMM dd, yyyy")
 	private Date effectiveDate;
-	@Column
+	
+	@Column(length = 4, nullable = false)
 	private String effectiveYear;
-	@Column
+	
+	@Column(precision = 7, scale = 2, nullable = false)
 	@JsonSerialize(using = BigDecimalSerializer.class)
 	private BigDecimal amount;
-	@Column
+	
+	@Column(precision = 5, scale = 2, nullable = false)
 	@JsonSerialize(using = BigDecimalSerializer.class)
 	private BigDecimal exchangeRate;
-	@Column
+	
+	@Column(length = 100)
 	private String comment;
 	@OneToOne
 	@JoinColumn(name = "DEBIT_USER")

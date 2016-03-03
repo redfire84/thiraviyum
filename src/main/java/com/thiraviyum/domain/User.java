@@ -18,14 +18,17 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class User extends BaseObject implements UserDetails {
 
 	@Id
-	@Column
+	@Column(length = 50)
 	private String username;
-	@Column
+	
+	@Column(length = 60, nullable = false)
 	@JsonIgnore
 	private String password;
-	@Column
+	
+	@Column(length = 50, nullable = false)
 	private String firstName;
-	@Column
+	
+	@Column(length = 50, nullable = false)
 	private String lastName;
 	
 	public String getUsername() {

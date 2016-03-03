@@ -13,10 +13,11 @@ import javax.persistence.TemporalType;
 @MappedSuperclass
 public abstract class BaseObject {
 
-	@Column(name = "MOD_DATE")
+	@Column(nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date modDate;
-	@Column(name = "MOD_USER")
+	
+	@Column(length = 50, nullable = false)
 	private String modUser;
 	
 	public Date getModDate() {
