@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -26,6 +28,7 @@ public class Credit extends BaseObject implements YearlyData {
 	@GeneratedValue
 	private Long id;
 	@Column
+	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "MMM dd, yyyy")
 	@JsonFormat(pattern = "MMM dd, yyyy")
 	private Date effectiveDate;
