@@ -15,12 +15,11 @@ import javax.persistence.TemporalType;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonFormat.Shape;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.thiraviyum.model.YearlyData;
 import com.thiraviyum.util.BigDecimalSerializer;
+import com.thiraviyum.util.DateSerializer;
 
 @Entity
 @Table(name = "THIRAVIYUM_DEBIT")
@@ -32,11 +31,12 @@ public class Debit extends BaseObject implements YearlyData {
 	
 	@Column(nullable = false)
 	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern = "MMM dd, yyyy")
-	@JsonFormat(shape = Shape.STRING, pattern = "MMM dd")
+	@DateTimeFormat(pattern = "dd-MMM-yyyy")
+	@JsonSerialize(using = DateSerializer.class)
 	private Date effectiveDate;
 	
 	@Column(length = 4, nullable = false)
+	@JsonIgnore
 	private String effectiveYear;
 	
 	@Column(precision = 7, scale = 2, nullable = false)
@@ -48,6 +48,7 @@ public class Debit extends BaseObject implements YearlyData {
 	private BigDecimal exchangeRate;
 	
 	@Column(length = 100)
+	@JsonIgnore
 	private String comment;
 	
 	@OneToOne

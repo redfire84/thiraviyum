@@ -65,7 +65,7 @@
 		</div>
 	</div>
 	<script type="text/javascript" data-th-inline="javascript">
-		require(["jquery", "datatables"], function($) {
+		require(["jquery", "datatables-bootstrap"], function($) {
 			$('#creditTable').dataTable({
 				paging: false,
 				searching: false,
@@ -73,7 +73,7 @@
 				info: false,
 				ajax: [[@{/credit/{year}/list(year=*{year},_csrf=${_csrf.token})}]],
 				columns: [
-					{ data: 'effectiveDate' },
+					{ data: 'effectiveDate', type: 'date-dd-mmm-yyyy' },
 					{ 
 						data: function(row, type, set, meta) {
 							return '<i class="fa fa-dollar"></i> ' + row.amount;
@@ -96,7 +96,7 @@
 				info: false,
 				ajax: [[@{/debit/{year}/list(year=*{year},_csrf=${_csrf.token})}]],
 				columns: [
-					{ data: 'effectiveDate' },
+					{ data: 'effectiveDate', type: 'date-dd-mmm-yyyy' },
 					{ 
 						data: function(row, type, set, meta) {
 							return '<i class="fa fa-dollar"></i> ' + row.amount;

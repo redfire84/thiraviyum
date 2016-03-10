@@ -5,7 +5,9 @@ require.config({
 		"jquery-ui": "vendor/jquery-ui/1.11.4/jquery-ui.min",
 		"parsleyjs": "vendor/parsleyjs/2.3.5/parsley.min",
 		"bootstrap": "vendor/bootstrap/3.3.6/js/bootstrap.min",
-		"datatables": ["vendor/datatables/1.10.11/js/jquery.dataTables.min", "vendor/datatables/1.10.11/js/dataTables.bootstrap.min"]
+		"datatables.net": "vendor/datatables/1.10.11/js/jquery.dataTables.min",
+		"datatables-bootstrap": "vendor/datatables/1.10.11/js/dataTables.bootstrap.min",
+		"datatables-date": "vendor/datatables/1.10.11/plug-ins/sorting/date-dd-MMM-yyyy"
 	},
 	shim: {
 		"jquery-ui": {
@@ -17,8 +19,14 @@ require.config({
 		"bootstrap": {
 			deps: ["jquery"]
 		},
-		"datatables": {
+		"datatables.net": {
 			deps: ["jquery"]
+		},
+		"datatables-date": {
+			deps: ["datatables.net"]
+		},
+		"datatables-bootstrap": {
+			deps: ["datatables.net", "datatables-date"]
 		}
 	}
 });
