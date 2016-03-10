@@ -16,9 +16,11 @@
 							<i class="fa fa-user fa-stack-1x text-primary"></i>
 						</span>
 					</div>
-					<div class="alert alert-default" role="alert">
-						<p class="text-center text-danger" data-th-if="${param.error}">Unable to login. Please try again.</p>
-						<p class="text-center text-info" data-th-if="${param.logout}">You have been successfully logged out.</p>
+					<div class="alert alert-default" data-th-if="${param.error}">
+						<p class="text-center text-danger" >Unable to login. Please try again.</p>
+					</div>
+					<div class="alert alert-default" data-th-if="${param.logout}">
+						<p class="text-center text-info">You have been successfully logged out.</p>
 					</div>
 					<div class="col-mod-12">
 						<form action="/login" data-th-action="@{/login}" method="post" data-parsley-validate="true">

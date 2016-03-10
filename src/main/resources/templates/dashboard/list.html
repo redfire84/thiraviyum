@@ -30,7 +30,7 @@
 		<div class="row">
 			<div class="col-md-6">
 				<div class="panel panel-primary">
-					<div class="panel-heading"><div class="panel-title">Credits</div></div>
+					<div class="panel-heading"><div class="panel-title">Credit</div></div>
 					<div class="panel-body">
 						<table id="creditTable" class="table table-bordered table-hover table-condensed">
 							<thead>
@@ -47,7 +47,7 @@
 			</div>
 			<div class="col-md-6">
 				<div class="panel panel-primary">
-					<div class="panel-heading"><div class="panel-title">Debits</div></div>
+					<div class="panel-heading"><div class="panel-title">Debit</div></div>
 					<div class="panel-body">
 						<table id="debitTable" class="table table-bordered table-hover table-condensed">
 							<thead>
@@ -65,7 +65,7 @@
 		</div>
 	</div>
 	<script type="text/javascript" data-th-inline="javascript">
-		require(["jquery", "bootstrap-datatables"], function($) {
+		require(["jquery", "datatables"], function($) {
 			$('#creditTable').dataTable({
 				paging: false,
 				searching: false,

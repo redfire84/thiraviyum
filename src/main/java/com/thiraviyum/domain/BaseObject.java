@@ -10,14 +10,18 @@ import javax.persistence.PreUpdate;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @MappedSuperclass
 public abstract class BaseObject {
 
 	@Column(nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
+	@JsonIgnore
 	private Date modDate;
 	
 	@Column(length = 50, nullable = false)
+	@JsonIgnore
 	private String modUser;
 	
 	public Date getModDate() {
