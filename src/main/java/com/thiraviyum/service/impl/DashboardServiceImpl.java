@@ -71,16 +71,16 @@ public class DashboardServiceImpl implements DashboardService {
 	}
 
 	private void populateYearlyData(Dashboard dashboard) {
-		Map<String, List<Credit>> yearlyCredits = splitYearlyData(dashboard.getCredits());
-		Map<String, List<Debit>> yearlyDebits = splitYearlyData(dashboard.getDebits());
+		Map<Integer, List<Credit>> yearlyCredits = splitYearlyData(dashboard.getCredits());
+		Map<Integer, List<Debit>> yearlyDebits = splitYearlyData(dashboard.getDebits());
 		
 		// all available years
-		Set<String> years = new TreeSet<String>();
+		Set<Integer> years = new TreeSet<>();
 		years.addAll(yearlyCredits.keySet());
 		years.addAll(yearlyDebits.keySet());
 		
 		List<YearlyDashboard> yearlyDashboard = new ArrayList<YearlyDashboard>();
-		for (String year : years) {
+		for (Integer year : years) {
 			YearlyDashboard yDashboard = new YearlyDashboard();
 			int months = effectiveMonths(year);
 			// Yearly data
@@ -141,13 +141,13 @@ public class DashboardServiceImpl implements DashboardService {
 		dashboard.setYearlyDashboard(yearlyDashboard);
 	}
 	
-	private <T extends YearlyData> Map<String, List<T>> splitYearlyData(List<T> list) {
-		Map<String, List<T>> yearlyData = new HashMap<String, List<T>>();
+	private <T extends YearlyData> Map<Integer, List<T>> splitYearlyData(List<T> list) {
+		Map<Integer, List<T>> yearlyData = new HashMap<>();
 		
 		List<T> ylist = new ArrayList<T>();
-		String previousYear = null;
+		Integer previousYear = null;
 		for (T data : list) {
-			if(previousYear != null && !previousYear.equals(data.getEffectiveYear())) {
+			if(previousYear != null && previousYear.compareTo(data.getEffectiveYear()) != 0) {
 				yearlyData.put(previousYear, ylist);
 				ylist = new ArrayList<T>();
 				
@@ -161,14 +161,13 @@ public class DashboardServiceImpl implements DashboardService {
 		return yearlyData;
 	}
 	
-	private int effectiveMonths(String year) {
-		int paramYear = Integer.valueOf(year);
+	private int effectiveMonths(Integer year) {
 		
 		int currentYear = Calendar.getInstance().get(Calendar.YEAR);
-		if (currentYear == paramYear) {
+		if (currentYear == year) {
 			return Calendar.getInstance().get(Calendar.MONTH) + 1;
 		}
-		else if (currentYear > paramYear) {
+		else if (currentYear > year) {
 			return 12;
 		}
 		else {

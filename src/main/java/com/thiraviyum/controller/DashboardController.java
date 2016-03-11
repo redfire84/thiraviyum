@@ -84,7 +84,7 @@ public class DashboardController {
 		if (dashboard.getYearlyDashboard() != null) {
 			for (YearlyDashboard yearlyDashboard : dashboard.getYearlyDashboard()) {
 				RowData row = new RowData();
-				row.addColumn(new Column<String>("Date(" + yearlyDashboard.getYear() + ", 0)", yearlyDashboard.getYear()));
+				row.addColumn(new Column<String>("Date(" + yearlyDashboard.getYear() + ", 0)", String.valueOf(yearlyDashboard.getYear())));
 				row.addColumn(new Column<BigDecimal>(yearlyDashboard.getOneYearCredit(), null));
 				row.addColumn(new Column<BigDecimal>(yearlyDashboard.getOneYearDebit(), null));
 				row.addColumn(new Column<BigDecimal>(yearlyDashboard.getOneYearDebitConverted(), null));

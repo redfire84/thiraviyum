@@ -1,6 +1,5 @@
 package com.thiraviyum.service.impl;
 
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +19,7 @@ public class DebitServiceImpl implements DebitService {
 	@Override
 	@Transactional
 	public void save(Debit debit, User user) {
-		debit.setEffectiveYear(new SimpleDateFormat("yyyy").format(debit.getEffectiveDate()));
+		debit.setEffectiveYear(debit.getEffectiveDate().getYear());
 		debit.setDebitUser(user);
 		debit.setModUser(user.getUsername());
 		debitDao.save(debit);
@@ -40,7 +39,7 @@ public class DebitServiceImpl implements DebitService {
 
 	@Override
 	@Transactional
-	public List<Debit> find(String year, User user) {
+	public List<Debit> find(Integer year, User user) {
 		return debitDao.findAllByDebitUserAndEffectiveYearOrderByEffectiveDate(user, year);
 	}
 

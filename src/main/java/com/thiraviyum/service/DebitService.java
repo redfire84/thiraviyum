@@ -9,5 +9,5 @@ public interface DebitService {
 	public void save(Debit debit, User user);
 	public void delete(Debit debit);
 	public Debit find(Long id);
-	public List<Debit> find(String year, User user);
+	public List<Debit> find(Integer year, User user);
 }

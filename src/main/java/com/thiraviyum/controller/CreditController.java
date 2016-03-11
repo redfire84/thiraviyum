@@ -49,7 +49,7 @@ public class CreditController {
 	
 	@RequestMapping(value = "{year}/list", produces = "application/json; charset=UTF-8")
 	@ResponseBody
-	public DataTable<Credit> list(@PathVariable String year, @AuthenticationPrincipal User user) {
+	public DataTable<Credit> list(@PathVariable Integer year, @AuthenticationPrincipal User user) {
 		DataTable<Credit> dataTable = new DataTable<Credit>();
 		dataTable.setData(creditService.find(year, user));
 		return dataTable;

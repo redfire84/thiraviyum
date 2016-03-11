@@ -8,7 +8,7 @@ import com.thiraviyum.domain.Debit;
 
 public class YearlyDashboard {
 
-	private String year;
+	private Integer year;
 	private BigDecimal oneYearCredit = BigDecimal.ZERO;
 	private BigDecimal oneMonthCredit = BigDecimal.ZERO;
 	private BigDecimal oneYearDebit = BigDecimal.ZERO;
@@ -19,10 +19,10 @@ public class YearlyDashboard {
 	private List<Credit> credits;
 	private List<Debit> debits;
 	
-	public String getYear() {
+	public Integer getYear() {
 		return year;
 	}
-	public void setYear(String year) {
+	public void setYear(Integer year) {
 		this.year = year;
 	}
 	public BigDecimal getOneYearCredit() {

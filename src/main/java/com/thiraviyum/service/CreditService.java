@@ -9,5 +9,5 @@ public interface CreditService {
 	public void save(Credit credit, User user);
 	public void delete(Credit credit);
 	public Credit find(Long id);
-	public List<Credit> find(String year, User user);
+	public List<Credit> find(Integer year, User user);
 }

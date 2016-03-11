@@ -49,7 +49,7 @@ public class DebitController {
 	
 	@RequestMapping(value = "{year}/list", produces = "application/json; charset=UTF-8")
 	@ResponseBody
-	public DataTable<Debit> list(@PathVariable String year, @AuthenticationPrincipal User user) {
+	public DataTable<Debit> list(@PathVariable Integer year, @AuthenticationPrincipal User user) {
 		DataTable<Debit> dataTable = new DataTable<Debit>();
 		dataTable.setData(debitService.find(year, user));
 		return dataTable;

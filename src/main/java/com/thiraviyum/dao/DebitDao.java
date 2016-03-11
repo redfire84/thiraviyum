@@ -10,5 +10,5 @@ import com.thiraviyum.domain.User;
 public interface DebitDao extends CrudRepository<Debit, Long> {
 
 	public List<Debit> findAllByDebitUserOrderByEffectiveDate(User user);
-	public List<Debit> findAllByDebitUserAndEffectiveYearOrderByEffectiveDate(User user, String effectiveYear);
+	public List<Debit> findAllByDebitUserAndEffectiveYearOrderByEffectiveDate(User user, Integer effectiveYear);
 }

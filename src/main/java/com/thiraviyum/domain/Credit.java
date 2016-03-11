@@ -1,7 +1,7 @@
 package com.thiraviyum.domain;
 
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,16 +10,14 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.thiraviyum.model.YearlyData;
-import com.thiraviyum.util.BigDecimalSerializer;
-import com.thiraviyum.util.DateSerializer;
+import com.thiraviyum.util.CurrencyFormattedBigDecimalSerializer;
 
 @Entity
 @Table(name = "THIRAVIYUM_CREDIT")
@@ -30,17 +28,16 @@ public class Credit extends BaseObject implements YearlyData {
 	private Long id;
 	
 	@Column(nullable = false)
-	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "dd-MMM-yyyy")
-	@JsonSerialize(using = DateSerializer.class)
-	private Date effectiveDate;
+	@JsonFormat(pattern = "dd-MMM-yyyy")
+	private LocalDate effectiveDate;
 	
-	@Column(length = 4, nullable = false)
+	@Column(precision = 4, scale = 0, nullable = false)
 	@JsonIgnore
-	private String effectiveYear;
+	private Integer effectiveYear;
 	
 	@Column(precision = 7, scale = 2, nullable = false)
-	@JsonSerialize(using = BigDecimalSerializer.class)
+	@JsonSerialize(using = CurrencyFormattedBigDecimalSerializer.class)
 	private BigDecimal amount;
 	
 	@Column(length = 15, nullable = false)
@@ -61,17 +58,17 @@ public class Credit extends BaseObject implements YearlyData {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public Date getEffectiveDate() {
+	public LocalDate getEffectiveDate() {
 		return effectiveDate;
 	}
-	public void setEffectiveDate(Date effectiveDate) {
+	public void setEffectiveDate(LocalDate effectiveDate) {
 		this.effectiveDate = effectiveDate;
 	}
 	@Override
-	public String getEffectiveYear() {
+	public Integer getEffectiveYear() {
 		return effectiveYear;
 	}
-	public void setEffectiveYear(String effectiveYear) {
+	public void setEffectiveYear(Integer effectiveYear) {
 		this.effectiveYear = effectiveYear;
 	}
 	public BigDecimal getAmount() {

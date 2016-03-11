@@ -1,6 +1,5 @@
 package com.thiraviyum.service.impl;
 
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +21,7 @@ public class CreditServiceImpl implements CreditService {
 	public void save(Credit credit, User user) {
 		credit.setCreditUser(user);
 		credit.setModUser(user.getUsername());
-		credit.setEffectiveYear(new SimpleDateFormat("yyyy").format(credit.getEffectiveDate()));
+		credit.setEffectiveYear(credit.getEffectiveDate().getYear());
 		creditDao.save(credit);
 	}
 
@@ -40,7 +39,7 @@ public class CreditServiceImpl implements CreditService {
 
 	@Override
 	@Transactional
-	public List<Credit> find(String year, User user) {
+	public List<Credit> find(Integer year, User user) {
 		return creditDao.findAllByCreditUserAndEffectiveYearOrderByEffectiveDate(user, year);
 	}
 
