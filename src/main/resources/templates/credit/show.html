@@ -18,7 +18,7 @@
 			<div class="form-group">
 				<label class="col-xs-6 control-label">Effective Date</label>
 				<div class="col-xs-6">
-					<p class="form-control-static" data-th-text="${#dates.format(credit.effectiveDate, 'dd-MMM-yyyy')}"></p>
+					<p class="form-control-static" data-th-text="${#temporals.format(credit.effectiveDate, 'dd-MMM-yyyy')}"></p>
 				</div>
 			</div>
 			<div class="form-group">
