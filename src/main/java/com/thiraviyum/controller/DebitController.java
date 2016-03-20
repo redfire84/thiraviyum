@@ -56,8 +56,9 @@ public class DebitController {
 	}
 	
 	@RequestMapping(value = "{id}/show")
-	public String show(@PathVariable Long id, Model model, RedirectAttributes redirectAttributes) {
-		Debit debit = debitService.find(id);
+	public String show(@PathVariable Long id, Model model, RedirectAttributes redirectAttributes, 
+			@AuthenticationPrincipal User user) {
+		Debit debit = debitService.find(id, user);
 		if (debit == null) {
 			redirectAttributes.addFlashAttribute("errorMsg", "Unable to find the debit data.");
 			return "redirect:/dashboard/show";
@@ -68,8 +69,9 @@ public class DebitController {
 	}
 	
 	@RequestMapping(value= "{id}/delete", method = RequestMethod.DELETE)
-	public String delete(@PathVariable Long id, RedirectAttributes redirectAttributes, SessionStatus sessionStatus) {
-		Debit debit = debitService.find(id);
+	public String delete(@PathVariable Long id, RedirectAttributes redirectAttributes, 
+			SessionStatus sessionStatus, @AuthenticationPrincipal User user) {
+		Debit debit = debitService.find(id, user);
 		if (debit == null) {
 			redirectAttributes.addFlashAttribute("errorMsg", "Unable to find the debit data to delete.");
 			return "redirect:/dashboard/show";

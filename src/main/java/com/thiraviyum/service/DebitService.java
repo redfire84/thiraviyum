@@ -8,6 +8,6 @@ import com.thiraviyum.domain.User;
 public interface DebitService {
 	public void save(Debit debit, User user);
 	public void delete(Debit debit);
-	public Debit find(Long id);
+	public Debit find(Long id, User user);
 	public List<Debit> find(Integer year, User user);
 }

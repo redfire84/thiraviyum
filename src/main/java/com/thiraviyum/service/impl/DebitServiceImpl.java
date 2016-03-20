@@ -33,8 +33,8 @@ public class DebitServiceImpl implements DebitService {
 
 	@Override
 	@Transactional
-	public Debit find(Long id) {
-		return debitDao.findOne(id);
+	public Debit find(Long id, User user) {
+		return debitDao.findOneByIdAndDebitUser(id, user);
 	}
 
 	@Override

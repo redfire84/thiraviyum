@@ -56,8 +56,9 @@ public class CreditController {
 	}
 	
 	@RequestMapping(value = "{id}/show")
-	public String show(@PathVariable Long id, Model model, RedirectAttributes redirectAttributes) {
-		Credit credit = creditService.find(id);
+	public String show(@PathVariable Long id, Model model, RedirectAttributes redirectAttributes, 
+			@AuthenticationPrincipal User user) {
+		Credit credit = creditService.find(id, user);
 		if (credit == null) {
 			redirectAttributes.addFlashAttribute("errorMsg", "Unable to find the credit data.");
 			return "redirect:/dashboard/show";
@@ -68,8 +69,9 @@ public class CreditController {
 	}
 	
 	@RequestMapping(value= "{id}/delete", method = RequestMethod.DELETE)
-	public String delete(@PathVariable Long id, RedirectAttributes redirectAttributes, SessionStatus sessionStatus) {
-		Credit credit = creditService.find(id);
+	public String delete(@PathVariable Long id, RedirectAttributes redirectAttributes, 
+			SessionStatus sessionStatus, @AuthenticationPrincipal User user) {
+		Credit credit = creditService.find(id, user);
 		if (credit == null) {
 			redirectAttributes.addFlashAttribute("errorMsg", "Unable to find the credit data to delete.");
 			return "redirect:/dashboard/show";

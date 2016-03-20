@@ -33,8 +33,8 @@ public class CreditServiceImpl implements CreditService {
 
 	@Override
 	@Transactional
-	public Credit find(Long id) {
-		return creditDao.findOne(id);
+	public Credit find(Long id, User user) {
+		return creditDao.findOneByIdAndCreditUser(id, user);
 	}
 
 	@Override
