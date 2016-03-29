@@ -28,10 +28,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			.authorizeRequests()
 				.antMatchers("/signup").permitAll().anyRequest().authenticated().and()
 			.formLogin().loginPage("/login").permitAll().usernameParameter("j_username").passwordParameter("j_password").and()
-			.logout().logoutUrl("/logout").permitAll().and()
+			.logout().deleteCookies("remember-me").logoutUrl("/logout").permitAll().and()
 			.headers().cacheControl().and().and()
 			.csrf().and()
-			.requestCache();
+			.requestCache().and()
+			.rememberMe();
 	}
 
 	@Override
