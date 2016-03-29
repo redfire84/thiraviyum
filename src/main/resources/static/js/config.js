@@ -7,7 +7,8 @@ require.config({
 		"bootstrap": "vendor/bootstrap/3.3.6/js/bootstrap.min",
 		"datatables.net": "vendor/datatables/1.10.11/js/jquery.dataTables.min",
 		"datatables-bootstrap": "vendor/datatables/1.10.11/js/dataTables.bootstrap.min",
-		"datatables-date": "vendor/datatables/1.10.11/plug-ins/sorting/date-dd-MMM-yyyy"
+		"datatables-date": "vendor/datatables/1.10.11/plug-ins/sorting/date-dd-MMM-yyyy",
+		"handlebars": "vendor/handlebars/4.0.5/handlebars"
 	},
 	shim: {
 		"jquery-ui": {

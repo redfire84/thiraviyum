@@ -36,7 +36,7 @@
 								</label>
 							</div>
 							<div class="form-group text-right">
-								<a href="#" data-toggle="modal" data-target="#signup-modal">Sign up</a> | <a href="#">Forgot password</a>
+								<a id="signup-modal-link" href="#" data-toggle="modal">Sign up</a> | <a href="#">Forgot password</a>
 							</div>
 							<div class="form-group">
 								<button type="submit" class="btn btn-primary btn-block">Login</button>
@@ -55,32 +55,8 @@
 		        		<button type="button" class="close" data-dismiss="modal">&times;</button>
 		        		<h4 class="modal-title">New User</h4>
 		      		</div>
-			      	<div class="modal-body">
-			      		<div class="form-group">
-							<label for="firstName" class="col-md-4 control-label">First Name</label>
-							<div class="col-md-6">
-								<input type="text" class="form-control" id="firstName" name="firstName" required="required" maxlength="50" />
-							</div>
-						</div>
-						<div class="form-group">
-							<label for="lastName" class="col-md-4 control-label">Last Name</label>
-							<div class="col-md-6">
-								<input type="text" class="form-control" id="lastName" name="lastName" required="required" maxlength="50" />
-							</div>
-						</div>
-						<div class="form-group">
-							<label for="username" class="col-md-4 control-label">Email</label>
-							<div class="col-md-6">
-								<input type="email" class="form-control" id="username" name="username" required="required" maxlength="50" 
-									data-th-attr="data-parsley-remote=@{/is-username-available}" data-parsley-remote-message="This email already exists." />
-							</div>
-						</div>
-			        	<div class="form-group">
-							<label for="password" class="col-md-4 control-label">Password</label>
-							<div class="col-md-6">
-								<input type="password" class="form-control" id="password" name="password" required="required" data-parsley-minlength="10" maxlength="60" />
-							</div>
-						</div>
+			      	<div id="signup-modal-body" class="modal-body">
+			      		
 			      	</div>
 			      	<div class="modal-footer">
 			        	<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
@@ -90,8 +66,45 @@
     		</div>
 	  	</div>
 	</div>
+	<script id="signup-modal-template" type="text/x-handlebars-template">
+		<div class="form-group">
+			<label for="firstName" class="col-md-4 control-label">First Name</label>
+			<div class="col-md-6">
+				<input type="text" class="form-control" id="firstName" name="firstName" required="required" maxlength="50" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="lastName" class="col-md-4 control-label">Last Name</label>
+			<div class="col-md-6">
+				<input type="text" class="form-control" id="lastName" name="lastName" required="required" maxlength="50" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="username" class="col-md-4 control-label">Email</label>
+			<div class="col-md-6">
+				<input type="email" class="form-control" id="username" name="username" required="required" maxlength="50" 
+					data-th-attr="data-parsley-remote=@{/is-username-available}" data-parsley-remote-message="This email already exists." />
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="password" class="col-md-4 control-label">Password</label>
+			<div class="col-md-6">
+				<input type="password" class="form-control" id="password" name="password" required="required" data-parsley-minlength="10" maxlength="60" />
+			</div>
+		</div>
+	</script>
 	<script type="text/javascript">
-		require(["parsleyjs", "bootstrap"]);
+		require(["jquery", "handlebars", "parsleyjs", "bootstrap"], function($, Handlebars) {
+			var templateSrc = $("#signup-modal-template").html();
+			var template = Handlebars.compile(templateSrc);
+			
+			$("#signup-modal-link").click(function(e) {
+				e.preventDefault();
+				
+				$("#signup-modal-body").html(template());
+				$("#signup-modal").modal("show");
+			});
+		});
 	</script>
 	<footer data-th-include="fragments/layout :: footer"></footer>
 </body>
