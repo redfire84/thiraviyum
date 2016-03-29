@@ -36,4 +36,10 @@ public class UserServiceImpl implements UserService {
 		user.setModUser(user.getUsername());
 		userDao.save(user);
 	}
+
+	@Override
+	@Transactional
+	public boolean isUsernameExists(String username) {
+		return userDao.exists(username);
+	}
 }

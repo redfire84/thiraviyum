@@ -7,4 +7,6 @@ import com.thiraviyum.domain.User;
 public interface UserService extends UserDetailsService {
 
 	void register(User user);
+	
+	boolean isUsernameExists(String username);
 }
