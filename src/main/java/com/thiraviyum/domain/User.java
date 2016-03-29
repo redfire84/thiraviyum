@@ -7,6 +7,9 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -18,16 +21,24 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class User extends BaseObject implements UserDetails {
 
 	@Id
+	@NotBlank
+	@Email
 	@Column(length = 50)
 	private String username;
 	
+	@NotBlank
+	@Length(min = 10, max = 60)
 	@Column(length = 60, nullable = false)
 	@JsonIgnore
 	private String password;
 	
+	@NotBlank
+	@Length(min = 1, max = 50)
 	@Column(length = 50, nullable = false)
 	private String firstName;
 	
+	@NotBlank
+	@Length(min = 1, max = 50)
 	@Column(length = 50, nullable = false)
 	private String lastName;
 	

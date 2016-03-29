@@ -10,7 +10,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -27,6 +29,7 @@ public class Debit extends BaseObject implements YearlyData {
 	@GeneratedValue
 	private Long id;
 	
+	@NotNull
 	@Column(nullable = false)
 	@DateTimeFormat(pattern = "dd-MMM-yyyy")
 	@JsonFormat(pattern = "dd-MMM-yyyy")
@@ -36,14 +39,17 @@ public class Debit extends BaseObject implements YearlyData {
 	@JsonIgnore
 	private Integer effectiveYear;
 	
+	@NotNull
 	@Column(precision = 7, scale = 2, nullable = false)
 	@JsonSerialize(using = CurrencyFormattedBigDecimalSerializer.class)
 	private BigDecimal amount;
 	
+	@NotNull
 	@Column(precision = 5, scale = 2, nullable = false)
 	@JsonSerialize(using = CurrencyFormattedBigDecimalSerializer.class)
 	private BigDecimal exchangeRate;
 	
+	@Length(max = 100)
 	@Column(length = 100)
 	@JsonIgnore
 	private String comment;
