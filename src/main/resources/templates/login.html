@@ -92,6 +92,12 @@
 				<input type="password" class="form-control" id="password" name="password" required="required" data-parsley-minlength="10" maxlength="60" />
 			</div>
 		</div>
+		<div class="form-group">
+			<label for="password" class="col-md-4 control-label">Confirm Password</label>
+			<div class="col-md-6">
+				<input type="password" class="form-control" id="password2" name="password2" required="required" data-parsley-minlength="10" maxlength="60" data-parsley-equalto="#password" />
+			</div>
+		</div>
 	</script>
 	<script type="text/javascript">
 		require(["jquery", "handlebars", "parsleyjs", "bootstrap"], function($, Handlebars) {
